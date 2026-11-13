@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exhibition - Gallery Ledger</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav id="nav"></nav>
+  </header>
+
+  <main>
+    <div id="not-found" hidden>
+      <h1>Exhibition not found</h1>
+      <p>The requested exhibition does not exist.</p>
+      <p><a href="exhibitions.html">&larr; Back to exhibitions</a></p>
+    </div>
+
+    <div id="exhibition-view" hidden>
+      <div>
+        <p>
+          <a href="exhibitions.html">&larr; Back to exhibitions</a> · 
+          <a href="#" id="edit-exhibition-link">Edit exhibition</a> · 
+          <a href="#" id="open-catalogue-link">Open catalogue</a>
+        </p>
+        <h1 id="exhibition-title"></h1>
+        <p class="label-meta" id="exhibition-meta"></p>
+        <p id="exhibition-desc"></p>
+      </div>
+
+      <div id="message" class="message"></div>
+
+      <hr>
+
+      <h2>Assign artwork to room</h2>
+      <form id="placement-form">
+        <div class="split">
+          <div class="field">
+            <label for="placement-artwork">Artwork</label>
+            <select id="placement-artwork" required></select>
+          </div>
+
+          <div class="field">
+            <label for="placement-space">Space</label>
+            <select id="placement-space" required></select>
+          </div>
+        </div>
+
+        <div>
+          <button type="submit" id="place-btn">Place artwork</button>
+          <p id="disabled-reason" class="label-meta"></p>
+        </div>
+      </form>
+
+      <hr>
+
+      <h2>Current placements</h2>
+      <div id="placements-container"></div>
+    </div>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/exhibition.js"></script>
+</body>
+</html>

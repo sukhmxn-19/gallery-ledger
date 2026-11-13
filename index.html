@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Gallery Ledger</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav id="nav"></nav>
+  </header>
+
+  <main>
+    <h1>Dashboard</h1>
+    <div id="message" class="message"></div>
+
+    <div id="empty-state" hidden>
+      <p>No gallery data found. Start by adding an artist.</p>
+      <p><a href="artists.html">Add the first artist &rarr;</a></p>
+    </div>
+
+    <div id="dashboard-content" hidden>
+      <div id="counts-row" class="count-row"></div>
+
+      <h2>On now</h2>
+      <div id="on-now-container"></div>
+
+      <hr>
+
+      <h2>Upcoming</h2>
+      <div id="upcoming-container"></div>
+    </div>
+
+    <hr>
+
+    <div class="row-actions">
+      <p>
+        <button type="button" id="load-sample-btn" class="secondary">Load sample data</button>
+        <button type="button" id="erase-all-btn" class="delete">Erase all data</button>
+      </p>
+    </div>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

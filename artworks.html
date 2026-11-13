@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artworks - Gallery Ledger</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav id="nav"></nav>
+  </header>
+
+  <main>
+    <h1>Artworks</h1>
+    <div id="message" class="message"></div>
+
+    <div class="split">
+      <div id="form-container">
+        <h2 id="form-heading">Add artwork</h2>
+        <div id="no-artists-message" hidden>
+          <p>No artists registered yet. <a href="artists.html">Add an artist first</a>.</p>
+        </div>
+        <form id="artwork-form">
+          <input type="hidden" id="artwork-id" value="">
+
+          <div class="field">
+            <label for="artwork-artist">Artist</label>
+            <select id="artwork-artist" required>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="artwork-title">Title</label>
+            <input type="text" id="artwork-title" required>
+          </div>
+
+          <div class="field">
+            <label for="artwork-year">Year</label>
+            <input type="number" id="artwork-year" placeholder="e.g. 2024">
+          </div>
+
+          <div class="field">
+            <label for="artwork-medium">Medium</label>
+            <input type="text" id="artwork-medium" placeholder="e.g. Oil on canvas" required>
+          </div>
+
+          <div class="field">
+            <label for="artwork-size">Size</label>
+            <input type="text" id="artwork-size" placeholder="e.g. 90 x 120 cm">
+          </div>
+
+          <div class="field">
+            <label for="artwork-price">Price (₹)</label>
+            <input type="number" id="artwork-price" min="1" placeholder="e.g. 45000" required>
+          </div>
+
+          <div class="field">
+            <label for="artwork-status">Status</label>
+            <select id="artwork-status">
+              <option value="Available">Available</option>
+              <option value="Reserved">Reserved</option>
+              <option value="Sold">Sold</option>
+            </select>
+          </div>
+
+          <div class="field" id="buyer-field" hidden>
+            <label for="artwork-buyer">Buyer</label>
+            <input type="text" id="artwork-buyer" placeholder="Buyer name">
+          </div>
+
+          <div>
+            <button type="submit" id="submit-btn">Add artwork</button>
+            <button type="button" id="cancel-btn" class="secondary" hidden>Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <div>
+        <div class="field">
+          <label for="filter-artist">Filter by artist</label>
+          <select id="filter-artist">
+            <option value="">All artists</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="filter-status">Filter by status</label>
+          <select id="filter-status">
+            <option value="">All statuses</option>
+            <option value="Available">Available</option>
+            <option value="Reserved">Reserved</option>
+            <option value="Sold">Sold</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="filter-search">Search title</label>
+          <input type="text" id="filter-search" placeholder="Type title to search...">
+        </div>
+
+        <hr>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Artist</th>
+              <th>Year</th>
+              <th>Medium</th>
+              <th class="num">Price</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="artworks-table-body">
+          </tbody>
+        </table>
+        <p id="empty-state" hidden>No artworks found.</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/artworks.js"></script>
+</body>
+</html>

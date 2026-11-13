@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artists - Gallery Ledger</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav id="nav"></nav>
+  </header>
+
+  <main>
+    <h1>Artists</h1>
+    <div id="message" class="message"></div>
+
+    <div class="split">
+      <div>
+        <h2 id="form-heading">Add artist</h2>
+        <form id="artist-form">
+          <input type="hidden" id="artist-id" value="">
+
+          <div class="field">
+            <label for="artist-name">Name</label>
+            <input type="text" id="artist-name" required>
+          </div>
+
+          <div class="field">
+            <label for="artist-born">Year Born</label>
+            <input type="number" id="artist-born" placeholder="e.g. 1978">
+          </div>
+
+          <div class="field">
+            <label for="artist-nationality">Nationality</label>
+            <input type="text" id="artist-nationality" placeholder="e.g. Indian">
+          </div>
+
+          <div class="field">
+            <label for="artist-style">Style</label>
+            <input type="text" id="artist-style" placeholder="e.g. Printmaking, Sculpture">
+          </div>
+
+          <div class="field">
+            <label for="artist-bio">Biography</label>
+            <textarea id="artist-bio" maxlength="400" placeholder="Max 400 characters"></textarea>
+          </div>
+
+          <div>
+            <button type="submit" id="submit-btn">Add artist</button>
+            <button type="button" id="cancel-btn" class="secondary" hidden>Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <div>
+        <div class="field">
+          <label for="search-input">Search by name</label>
+          <input type="text" id="search-input" placeholder="Type to filter artists...">
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Nationality</th>
+              <th>Style</th>
+              <th class="num">Artworks</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="artists-table-body">
+          </tbody>
+        </table>
+        <p id="empty-state" hidden>No artists found.</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/artists.js"></script>
+</body>
+</html>

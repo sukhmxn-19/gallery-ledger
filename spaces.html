@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spaces - Gallery Ledger</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav id="nav"></nav>
+  </header>
+
+  <main>
+    <h1>Spaces</h1>
+    <div id="message" class="message"></div>
+
+    <div class="split">
+      <div>
+        <h2 id="form-heading">Add space</h2>
+        <form id="space-form">
+          <input type="hidden" id="space-id" value="">
+
+          <div class="field">
+            <label for="space-name">Name</label>
+            <input type="text" id="space-name" placeholder="e.g. North Hall" required>
+          </div>
+
+          <div class="field">
+            <label for="space-capacity">Capacity</label>
+            <input type="number" id="space-capacity" min="1" max="100" placeholder="1 to 100" required>
+          </div>
+
+          <div class="field">
+            <label for="space-note">Note</label>
+            <textarea id="space-note" placeholder="e.g. Natural light, sculpture only"></textarea>
+          </div>
+
+          <div>
+            <button type="submit" id="submit-btn">Add space</button>
+            <button type="button" id="cancel-btn" class="secondary" hidden>Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th class="num">Capacity</th>
+              <th>Note</th>
+              <th>In use by</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="spaces-table-body">
+          </tbody>
+        </table>
+        <p id="empty-state" hidden>No spaces recorded yet.</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/spaces.js"></script>
+</body>
+</html>

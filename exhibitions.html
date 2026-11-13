@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exhibitions - Gallery Ledger</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav id="nav"></nav>
+  </header>
+
+  <main>
+    <h1>Exhibitions</h1>
+    <div id="message" class="message"></div>
+
+    <div class="split">
+      <div>
+        <h2 id="form-heading">Create exhibition</h2>
+        <form id="exhibition-form">
+          <input type="hidden" id="exhibition-id" value="">
+
+          <div class="field">
+            <label for="exhibition-title">Title</label>
+            <input type="text" id="exhibition-title" required>
+          </div>
+
+          <div class="field">
+            <label for="exhibition-theme">Theme</label>
+            <input type="text" id="exhibition-theme" placeholder="e.g. Modern Indian Printmaking">
+          </div>
+
+          <div class="field">
+            <label for="exhibition-description">Description</label>
+            <textarea id="exhibition-description" maxlength="400" placeholder="Max 400 characters"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="exhibition-start">Start date</label>
+            <input type="date" id="exhibition-start" required>
+          </div>
+
+          <div class="field">
+            <label for="exhibition-end">End date</label>
+            <input type="date" id="exhibition-end" required>
+          </div>
+
+          <div>
+            <button type="submit" id="submit-btn">Create exhibition</button>
+            <button type="button" id="cancel-btn" class="secondary" hidden>Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Dates</th>
+              <th>Status</th>
+              <th class="num">Placements</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="exhibitions-table-body">
+          </tbody>
+        </table>
+        <p id="empty-state" hidden>No exhibitions recorded yet.</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/exhibitions.js"></script>
+</body>
+</html>
