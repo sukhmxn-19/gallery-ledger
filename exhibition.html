@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exhibition - Gallery Ledger</title>
+  <title>Exhibition Details - Gallery Ledger</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -11,56 +11,146 @@
     <nav id="nav"></nav>
   </header>
 
-  <main>
-    <div id="not-found" hidden>
-      <h1>Exhibition not found</h1>
-      <p>The requested exhibition does not exist.</p>
-      <p><a href="exhibitions.html">&larr; Back to exhibitions</a></p>
+  <main class="animate-in">
+    <!-- Not Found State -->
+    <div id="not-found" class="empty-curatorial" hidden>
+      <h1>Exhibition Not Found</h1>
+      <p>The requested exhibition record does not exist in the permanent registry.</p>
+      <div style="margin-top:16px;">
+        <a href="exhibitions.html" class="btn">&larr; Return to Exhibitions Programme</a>
+      </div>
     </div>
 
+    <!-- Active Exhibition Content View -->
     <div id="exhibition-view" hidden>
-      <div>
-        <p>
-          <a href="exhibitions.html">&larr; Back to exhibitions</a> · 
-          <a href="#" id="edit-exhibition-link">Edit exhibition</a> · 
-          <a href="#" id="open-catalogue-link">Open catalogue</a>
-        </p>
-        <h1 id="exhibition-title"></h1>
-        <p class="label-meta" id="exhibition-meta"></p>
-        <p id="exhibition-desc"></p>
+      <!-- Navigation Bar -->
+      <div class="exhibition-header-nav">
+        <a href="exhibitions.html" class="exhibition-nav-back">&larr; Exhibitions Programme</a>
+        <div class="exhibition-nav-links">
+          <a href="#" id="edit-exhibition-link" class="btn-secondary">Edit Exhibition</a>
+          <a href="#" id="open-catalogue-link" class="btn-secondary">Open Catalogue</a>
+          <a href="#placement-desk" class="btn">Assign Artwork &darr;</a>
+        </div>
       </div>
 
       <div id="message" class="message"></div>
 
-      <hr>
-
-      <h2>Assign artwork to room</h2>
-      <form id="placement-form">
-        <div class="split">
-          <div class="field">
-            <label for="placement-artwork">Artwork</label>
-            <select id="placement-artwork" required></select>
+      <!-- Editorial Exhibition Hero Header -->
+      <section class="exhibition-detail-hero">
+        <div class="detail-hero-content">
+          <div class="detail-hero-meta">
+            <span id="exhibition-status"></span>
+            <span id="exhibition-dates" class="detail-hero-dates"></span>
           </div>
-
-          <div class="field">
-            <label for="placement-space">Space</label>
-            <select id="placement-space" required></select>
+          <h1 id="exhibition-title" class="detail-hero-title"></h1>
+          <p id="exhibition-theme" class="detail-hero-theme"></p>
+          <p id="exhibition-desc" class="detail-hero-desc"></p>
+          <div class="detail-hero-actions">
+            <a href="#" id="hero-catalogue-btn" class="btn">Open Curatorial Catalogue</a>
+            <a href="#placement-desk" class="btn btn-secondary">Assign Artwork to Room</a>
           </div>
         </div>
+        <div class="detail-hero-visual">
+          <img id="exhibition-hero-img" src="img/hero-gallery.svg" alt="Exhibition visual plate">
+        </div>
+      </section>
 
+      <!-- Catalogue Strip Banner -->
+      <div class="catalogue-banner">
+        <div class="catalogue-banner-text">
+          <span class="catalogue-banner-title">Curatorial Publication &amp; Wall Placards</span>
+          <span class="catalogue-banner-sub">Printable exhibition publication with running registry numbering and artwork valuations</span>
+        </div>
         <div>
-          <button type="submit" id="place-btn">Place artwork</button>
-          <p id="disabled-reason" class="label-meta"></p>
+          <a href="#" id="banner-catalogue-btn" class="btn btn-secondary">Open Publication &rarr;</a>
         </div>
-      </form>
+      </div>
 
-      <hr>
+      <!-- Placed Artworks Grouped by Gallery Display Room -->
+      <section>
+        <div class="section-header">
+          <div class="section-tag">INSTALLATION OVERVIEW</div>
+          <h2>Artworks on View by Gallery Room</h2>
+          <p class="section-desc">Works positioned across designated gallery spaces with live wall occupancy tracking.</p>
+        </div>
+        <div id="rooms-container" class="exhibition-rooms-container"></div>
+      </section>
 
-      <h2>Current placements</h2>
-      <div id="placements-container"></div>
+      <!-- Curatorial Placement Desk -->
+      <section class="curatorial-placement-desk" id="placement-desk">
+        <div class="section-tag">CURATORIAL OFFICE</div>
+        <h2>Assign Artwork to Display Room</h2>
+        <p class="label-meta">
+          Allocate catalogued pieces to gallery display rooms. The system validates that artworks are not sold, do not conflict with overlapping exhibition schedules, and that room physical capacities are maintained.
+        </p>
+
+        <form id="placement-form">
+          <div class="placement-grid">
+            <div class="field">
+              <label for="placement-artwork">Eligible Artwork</label>
+              <select id="placement-artwork" required></select>
+            </div>
+
+            <div class="field">
+              <label for="placement-space">Available Display Space</label>
+              <select id="placement-space" required></select>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;">
+            <button type="submit" id="place-btn">Place Artwork in Room</button>
+            <p id="disabled-reason" class="label-meta" style="color:var(--accent-vermilion); margin-top:8px;"></p>
+          </div>
+        </form>
+      </section>
     </div>
   </main>
 
+  <!-- Multi-column Curatorial Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <span class="brand">GALLERY LEDGER</span>
+        <p class="footer-tagline">Contemporary Art Archive &amp; Exhibition Registry</p>
+        <p class="footer-about">
+          A curatorial platform designed for physical exhibition scheduling, room allocations, artwork assignment, and collection cataloguing. Runs entirely client-side without third-party dependencies.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>The Gallery</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="exhibitions.html">Exhibitions</a></li>
+          <li><a href="artworks.html">Collection</a></li>
+          <li><a href="artists.html">Artists</a></li>
+          <li><a href="spaces.html">Gallery Spaces</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Workspace</h4>
+        <ul>
+          <li><a href="dashboard.html">Curatorial Overview</a></li>
+          <li><a href="artists.html">Register Artist</a></li>
+          <li><a href="artworks.html">Catalogue Artwork</a></li>
+          <li><a href="spaces.html">Manage Spaces</a></li>
+          <li><a href="exhibitions.html">Schedule Exhibition</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Academic Attribution</h4>
+        <p><strong>Course:</strong> CSE326 (1st Semester, LPU)</p>
+        <p><strong>Project IDs:</strong> RK2P26EVA29 / RK2P26EVA30</p>
+        <p><strong>Team:</strong> Sukhmanpreet Kaur, Sonam Verma, Salik Riyaz</p>
+        <p class="footer-built">Vanilla HTML5 · CSS3 · Pure JavaScript · LocalStorage</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Gallery Ledger. Curatorial Archival System.</span>
+      <span>Completely Offline &amp; Examiner Ready</span>
+    </div>
+  </footer>
+
+  <script src="js/demo-data.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/exhibition.js"></script>

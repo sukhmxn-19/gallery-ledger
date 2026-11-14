@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 320" width="500" height="320">
+  <defs>
+    <linearGradient id="ngLight" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#f8f6f0" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+  <rect width="500" height="320" fill="#f4efe6"/>
+  <!-- Room Perspective Walls -->
+  <polygon points="60,40 440,40 390,235 110,235" fill="#e2d9ca" stroke="#baad98" stroke-width="1.5"/>
+  <polygon points="0,0 60,40 110,235 0,320" fill="#ede5d8"/>
+  <polygon points="500,0 440,40 390,235 500,320" fill="#d4c9b8"/>
+  <!-- Vaulted Skylight Truss in Ceiling -->
+  <polygon points="100,40 400,40 440,0 60,0" fill="#ffffff" stroke="#9d907d" stroke-width="1.5"/>
+  <line x1="180" y1="0" x2="180" y2="40" stroke="#9d907d" stroke-width="1.5"/>
+  <line x1="250" y1="0" x2="250" y2="40" stroke="#9d907d" stroke-width="1.5"/>
+  <line x1="320" y1="0" x2="320" y2="40" stroke="#9d907d" stroke-width="1.5"/>
+  <!-- Natural Skylight Cascade -->
+  <polygon points="100,40 400,40 360,235 140,235" fill="url(#ngLight)"/>
+  <!-- Gallery Floor Boards -->
+  <polygon points="110,235 390,235 500,320 0,320" fill="#a89a85"/>
+  <line x1="180" y1="235" x2="120" y2="320" stroke="#877864" stroke-width="1.5"/>
+  <line x1="250" y1="235" x2="250" y2="320" stroke="#877864" stroke-width="1.5"/>
+  <line x1="320" y1="235" x2="380" y2="320" stroke="#877864" stroke-width="1.5"/>
+  <!-- Exhibition Wall Hanging Placards -->
+  <rect x="145" y="85" width="65" height="90" fill="#ffffff" stroke="#181715" stroke-width="1.5"/>
+  <rect x="230" y="80" width="70" height="95" fill="#fcfbf7" stroke="#181715" stroke-width="1.5"/>
+  <rect x="320" y="85" width="45" height="90" fill="#ffffff" stroke="#181715" stroke-width="1.5"/>
+  <!-- Archival Label -->
+  <text x="25" y="305" font-family="'Consolas', 'Menlo', monospace" font-size="10" letter-spacing="1.5" fill="#2d2822">SPACE 01 · NORTH GALLERY (CAPACITY: 6)</text>
+</svg>
+

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Artworks - Gallery Ledger</title>
+  <title>The Collection — Gallery Ledger</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -12,27 +12,45 @@
   </header>
 
   <main>
-    <h1>Artworks</h1>
+    <div class="collection-intro">
+      <div class="collection-header-row">
+        <div>
+          <div class="section-tag">Permanent & Consigned Works</div>
+          <h1>The Collection</h1>
+          <p class="page-subtitle">Curated catalog of original works across painting, sculpture, and printmaking.</p>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <span id="collection-count" class="collection-count-pill">0 Works</span>
+          <button type="button" id="toggle-admin-btn" class="admin-toggle-btn">✦ Accession Desk</button>
+        </div>
+      </div>
+    </div>
+
     <div id="message" class="message"></div>
 
-    <div class="split">
-      <div id="form-container">
-        <h2 id="form-heading">Add artwork</h2>
-        <div id="no-artists-message" hidden>
-          <p>No artists registered yet. <a href="artists.html">Add an artist first</a>.</p>
-        </div>
-        <form id="artwork-form">
-          <input type="hidden" id="artwork-id" value="">
+    <!-- Collapsible Curatorial Accession Desk -->
+    <div id="admin-panel" class="admin-panel" hidden>
+      <h2 id="form-heading">Add artwork</h2>
+      <div id="no-artists-message" hidden>
+        <p>No artists registered yet. <a href="artists.html">Add an artist first</a>.</p>
+      </div>
+      <form id="artwork-form">
+        <input type="hidden" id="artwork-id" value="">
 
+        <div class="admin-grid">
           <div class="field">
             <label for="artwork-artist">Artist</label>
-            <select id="artwork-artist" required>
-            </select>
+            <select id="artwork-artist" required></select>
           </div>
 
           <div class="field">
             <label for="artwork-title">Title</label>
-            <input type="text" id="artwork-title" required>
+            <input type="text" id="artwork-title" placeholder="Artwork title" required>
+          </div>
+
+          <div class="field">
+            <label for="artwork-medium">Medium</label>
+            <input type="text" id="artwork-medium" placeholder="e.g. Oil on linen" required>
           </div>
 
           <div class="field">
@@ -41,18 +59,13 @@
           </div>
 
           <div class="field">
-            <label for="artwork-medium">Medium</label>
-            <input type="text" id="artwork-medium" placeholder="e.g. Oil on canvas" required>
+            <label for="artwork-size">Dimensions</label>
+            <input type="text" id="artwork-size" placeholder="e.g. 120 x 90 cm">
           </div>
 
           <div class="field">
-            <label for="artwork-size">Size</label>
-            <input type="text" id="artwork-size" placeholder="e.g. 90 x 120 cm">
-          </div>
-
-          <div class="field">
-            <label for="artwork-price">Price (₹)</label>
-            <input type="number" id="artwork-price" min="1" placeholder="e.g. 45000" required>
+            <label for="artwork-price">Valuation (₹)</label>
+            <input type="number" id="artwork-price" min="1" placeholder="e.g. 85000" required>
           </div>
 
           <div class="field">
@@ -65,42 +78,50 @@
           </div>
 
           <div class="field" id="buyer-field" hidden>
-            <label for="artwork-buyer">Buyer</label>
-            <input type="text" id="artwork-buyer" placeholder="Buyer name">
+            <label for="artwork-buyer">Collector / Buyer</label>
+            <input type="text" id="artwork-buyer" placeholder="Collector or Institution name">
           </div>
+        </div>
 
-          <div>
-            <button type="submit" id="submit-btn">Add artwork</button>
-            <button type="button" id="cancel-btn" class="secondary" hidden>Cancel</button>
-          </div>
-        </form>
+        <div class="admin-actions">
+          <button type="submit" id="submit-btn">Add artwork</button>
+          <button type="button" id="cancel-btn" class="secondary">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Collection Discovery Toolbar -->
+    <div class="collection-toolbar">
+      <div class="collection-filter-group">
+        <input type="text" id="filter-search" class="collection-search" placeholder="Search collection by title...">
+        <select id="filter-artist" class="collection-select">
+          <option value="">All artists</option>
+        </select>
+        <select id="filter-status" class="collection-select">
+          <option value="">All statuses</option>
+          <option value="Available">Available</option>
+          <option value="Reserved">Reserved</option>
+          <option value="Sold">Sold</option>
+        </select>
+        <button type="button" id="clear-filters-btn" class="secondary" style="font-size: 11px; padding: 6px 10px;" data-action="clear-filters">Clear</button>
       </div>
 
-      <div>
-        <div class="field">
-          <label for="filter-artist">Filter by artist</label>
-          <select id="filter-artist">
-            <option value="">All artists</option>
-          </select>
-        </div>
+      <div class="view-toggle">
+        <button type="button" id="view-gallery-btn" class="view-btn active" title="Curated Gallery Grid" data-action="view-gallery">⊞ Gallery</button>
+        <button type="button" id="view-inventory-btn" class="view-btn" title="Staff Inventory Table" data-action="view-inventory">≡ Inventory</button>
+      </div>
+    </div>
 
-        <div class="field">
-          <label for="filter-status">Filter by status</label>
-          <select id="filter-status">
-            <option value="">All statuses</option>
-            <option value="Available">Available</option>
-            <option value="Reserved">Reserved</option>
-            <option value="Sold">Sold</option>
-          </select>
-        </div>
+    <!-- Image-led Gallery Grid (Default View) -->
+    <div id="gallery-view" class="collection-grid"></div>
 
-        <div class="field">
-          <label for="filter-search">Search title</label>
-          <input type="text" id="filter-search" placeholder="Type title to search...">
-        </div>
-
-        <hr>
-
+    <!-- Tabular Inventory View (Staff Administration) -->
+    <div id="inventory-view" class="inventory-view-container" hidden>
+      <div class="inventory-table-header">
+        <h3>Archival Inventory Registry</h3>
+        <span class="collection-count-pill" id="inventory-count"></span>
+      </div>
+      <div style="overflow-x: auto;">
         <table>
           <thead>
             <tr>
@@ -108,19 +129,76 @@
               <th>Artist</th>
               <th>Year</th>
               <th>Medium</th>
-              <th class="num">Price</th>
+              <th>Dimensions</th>
+              <th class="num">Valuation</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody id="artworks-table-body">
-          </tbody>
+          <tbody id="artworks-table-body"></tbody>
         </table>
-        <p id="empty-state" hidden>No artworks found.</p>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="empty-curatorial" hidden>
+      <h3>No artworks match</h3>
+      <p>No catalogued artworks match the current filter criteria or search query.</p>
+      <button type="button" id="empty-reset-btn" class="secondary" data-action="clear-filters">Reset Filters</button>
+    </div>
+
+    <!-- Artwork Curatorial Inspection Drawer -->
+    <div id="detail-drawer-overlay" class="detail-drawer-overlay">
+      <div id="detail-drawer" class="detail-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+        <div class="drawer-head">
+          <h2 id="drawer-title">Artwork Dossier</h2>
+          <button type="button" id="drawer-close-btn" class="drawer-close-btn" aria-label="Close Dossier" data-action="close-drawer">&times;</button>
+        </div>
+        <div id="drawer-content" class="drawer-body"></div>
       </div>
     </div>
   </main>
 
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <span class="brand">GALLERY LEDGER</span>
+        <span class="footer-tagline">Exhibition Platform</span>
+        <p class="footer-about">An architectural art gallery exhibition management system connecting living artists, original works, physical spaces, and curated exhibition programmes.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">The Gallery</a></li>
+          <li><a href="exhibitions.html">Exhibitions</a></li>
+          <li><a href="artists.html">Artists</a></li>
+          <li><a href="artworks.html">Collection</a></li>
+          <li><a href="spaces.html">Gallery Spaces</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Workspace</h4>
+        <ul>
+          <li><a href="dashboard.html">Curatorial Office</a></li>
+          <li><a href="exhibitions.html">Scheduling Desk</a></li>
+          <li><a href="artworks.html">Accession Desk</a></li>
+          <li><a href="spaces.html">Space Allocation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Colophon</h4>
+        <p>CSE326 Web Development Project.</p>
+        <p>Built with semantic HTML5, modular CSS3, and browser localStorage persistence.</p>
+        <p class="footer-built">100% Client-side &bull; Zero External Network Calls</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Gallery Ledger. Curatorial Archive System.</span>
+      <span>Permanent & Consigned Artworks Collection</span>
+    </div>
+  </footer>
+
+  <script src="js/demo-data.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/artworks.js"></script>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 320" width="500" height="320">
+  <defs>
+    <linearGradient id="nhLight" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#f8f6f0" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+  <rect width="500" height="320" fill="#f4efe6"/>
+  <!-- Room Walls -->
+  <polygon points="50,40 450,40 400,240 100,240" fill="#ded5c4" stroke="#baad98" stroke-width="1.5"/>
+  <polygon points="0,0 50,40 100,240 0,320" fill="#e8dfd0"/>
+  <polygon points="500,0 450,40 400,240 500,320" fill="#cfc2ad"/>
+  <!-- Skylight Truss in Ceiling -->
+  <polygon points="120,40 380,40 420,0 80,0" fill="#ffffff" stroke="#a09480" stroke-width="1.5"/>
+  <line x1="200" y1="0" x2="200" y2="40" stroke="#a09480" stroke-width="1.5"/>
+  <line x1="300" y1="0" x2="300" y2="40" stroke="#a09480" stroke-width="1.5"/>
+  <!-- Skylight Light Cascade -->
+  <polygon points="120,40 380,40 350,240 150,240" fill="url(#nhLight)"/>
+  <!-- Floor Planks -->
+  <polygon points="100,240 400,240 500,320 0,320" fill="#b0a28c"/>
+  <line x1="200" y1="240" x2="160" y2="320" stroke="#8d7f6b" stroke-width="1.5"/>
+  <line x1="300" y1="240" x2="340" y2="320" stroke="#8d7f6b" stroke-width="1.5"/>
+  <!-- Hanging Frames on Wall -->
+  <rect x="140" y="90" width="80" height="100" fill="#ffffff" stroke="#181715" stroke-width="1.5"/>
+  <rect x="280" y="90" width="80" height="100" fill="#ffffff" stroke="#181715" stroke-width="1.5"/>
+  <text x="25" y="305" font-family="'Consolas', monospace" font-size="10" letter-spacing="1.5" fill="#3a342c">SPACE 01 · NORTH HALL (CAPACITY: 6)</text>
+</svg>

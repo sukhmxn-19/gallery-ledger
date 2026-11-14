@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="liPhotogram" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="30%" stop-color="#dedede" stop-opacity="0.6"/>
+      <stop offset="70%" stop-color="#55575c" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#141517" stop-opacity="0.95"/>
+    </linearGradient>
+  </defs>
+  <!-- Deep Darkroom Silver Gelatin Charcoal -->
+  <rect width="400" height="300" fill="#141518"/>
+  <rect x="20" y="20" width="360" height="260" fill="#1b1d22" stroke="#373a42" stroke-width="1"/>
+  
+  <!-- Optical Slit Diaphragm Photogram Silhouette -->
+  <!-- Slit 1 -->
+  <polygon points="60,40 100,40 120,240 80,240" fill="#f5f7fa" fill-opacity="0.85"/>
+  <!-- Slit 2: Angled Ray Overlap -->
+  <polygon points="90,40 180,40 230,240 140,240" fill="url(#liPhotogram)"/>
+  <!-- Slit 3: Crisp Silvery Exposure -->
+  <polygon points="190,40 215,40 270,240 245,240" fill="#ffffff" fill-opacity="0.95"/>
+  <!-- Slit 4: Soft Diffused Secondary Exposure -->
+  <polygon points="230,40 320,40 340,240 250,240" fill="#7a808a" fill-opacity="0.5"/>
+
+  <!-- Optical Slit Horizontal Hairlines -->
+  <line x1="50" y1="140" x2="350" y2="140" stroke="#f5f7fa" stroke-width="0.75" stroke-dasharray="3,3"/>
+  <line x1="50" y1="180" x2="350" y2="180" stroke="#8d94a0" stroke-width="0.5"/>
+
+  <!-- Archival plate notation -->
+  <text x="28" y="272" font-family="'Consolas', 'Menlo', monospace" font-size="8.5" letter-spacing="1" fill="#8d94a0">LUMINOUS INTERVAL · GELATIN SILVER PHOTOGRAM · SONAM VERMA</text>
+</svg>
+

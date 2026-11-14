@@ -4,11 +4,17 @@ Read this file fully before every task. Then read `docs/PRD.md` for what to buil
 
 ## 1. Project
 
-A college project (CSE326, 1st semester, LPU): an **art gallery exhibition management** website. Two first-semester students built it and must **explain every line of it to an examiner**. The code must therefore look like a good student wrote it: plain, small, obvious.
+A college project (CSE326, 1st semester, LPU): an **art gallery exhibition management platform** connecting artists, artworks, exhibition periods, gallery spaces, and artwork assignments.
+
+The platform is structured into two connected layers sharing one unified `localStorage` repository:
+- **A. The Gallery Experience:** The public-facing art gallery website (`index.html`) featuring an editorial hero section, seasonal exhibition showcases, curated artwork grids, artist spotlights, architectural gallery space cards, and an interactive methodology guide.
+- **B. The Management Workspace:** The staff curatorial office (`dashboard.html`, `artists.html`, `artworks.html`, `spaces.html`, `exhibitions.html`, `exhibition.html`, `catalogue.html`) providing administration tools for registering artists, managing artwork records, scheduling exhibitions, allocating spaces, validating placements, and generating printable exhibition catalogues.
+
+Two first-semester students built it and must **explain every line of it to an examiner**. The code must therefore look like a good student wrote it: plain, small, obvious, and human-crafted without AI template slop.
 
 ## 2. The stack (hard limits)
 
-Allowed: HTML5, CSS3, plain JavaScript in the browser, `localStorage`.
+Allowed: HTML5, CSS3, plain JavaScript in the browser, `localStorage`, local SVG/image assets.
 
 Forbidden, no exceptions, even if it seems helpful:
 - Frameworks or libraries: React, Vue, Angular, jQuery, Bootstrap, Tailwind, Alpine, anything similar
@@ -19,7 +25,7 @@ Forbidden, no exceptions, even if it seems helpful:
 - Web Components, Service Workers, IndexedDB, frameworks disguised as helper code
 - Writing your own mini-framework (no virtual DOM, no template engine, no state manager, no router)
 
-The site must run by double-clicking `index.html`.
+The site must run by double-clicking `index.html` directly from the local file system.
 
 If a task seems to need something forbidden, **stop and ask**. Do not work around it.
 
@@ -40,24 +46,19 @@ Rules:
 8. Do not duplicate logic. If two pages need it, it goes in `storage.js` or `ui.js`.
 9. No dead code, no commented-out code, no TODOs left behind, no `console.log` left behind.
 
-## 3. HTML and CSS style
+## 4. Design rules (curatorial editorial aesthetic)
 
-HTML: semantic elements, every input has a `<label for>`, one `<h1>` per page, no inline `style=""`, no inline `onclick=""` (use `addEventListener`), no div soup.
+The design must feel like a living contemporary art gallery and museum archive: elegant, tactile, deeply architectural, and expressive, while remaining 100% vanilla and examiner-friendly.
 
-CSS: one file, `css/style.css`. All colours, fonts and spacings come from variables declared in `:root`. Class names are short and plain (`.field`, `.label-card`, `.row-actions`), no BEM, no utility-class systems. Use flexbox or grid, no floats, no `!important`. Media queries only for the narrow layout (max-width 700px) and print.
-
-## 4. Design rules (read twice)
-
-The design must feel like a printed gallery guide. Follow PRD section 8 exactly. Summary:
-
-- Palette: paper `#f4f1ea`, ink `#1c1b19`, muted `#6b675e`, line `#cfc9bb`, accent `#8c2f1b`. Nothing else.
-- No gradients. No shadows. No blue. No purple. No glass effects. No pill badges. No rounded cards (2px radius at most). No emojis. No icons. No hero sections. No animations or transitions.
-- No marketing copy. Never write "Welcome", "Seamless", "Powerful", "Effortlessly", "Streamline", or exclamation marks.
-- Georgia for text, system monospace for labels and numbers. No web fonts.
-- Every element must earn its place. If it does not show data, take an action, or help navigation, delete it.
-- Empty states are one plain sentence plus one link.
-
-If your first instinct is "modern", "sleek" or "clean SaaS", that is the wrong instinct. Think museum wall label, ledger book, exhibition catalogue.
+- **Palette:** Archival vellum (`#f8f6f0`), surface white (`#ffffff`), linen matting (`#f2eee5`), carbon ink (`#181715`), muted graphite (`#787367`), border hairlines (`#d4ccbd`), with curated gallery accents: Florentine vermilion (`#9e2a1b`) for live shows and sold works, antique ochre (`#b37418`) for upcoming and reserved states, sage olive (`#386641`) for available works and healthy capacity, and archival slate (`#5c6773`) for closed exhibitions.
+- **Hero & Editorial Sections:** Large asymmetrical editorial heroes with strong typography, curated gallery imagery, meaningful headlines ("Where art finds its place"), and dual actions (Explore Exhibitions vs. Manage Collection).
+- **Gallery Imagery & Visual Assets:** Permitted and encouraged via bundled, local SVG files and illustrative artwork plates stored in `img/`. Zero external network calls.
+- **Card Grids & Presentation:** Visual exhibition feature cards with dates and space meters, curated artwork showcase grids with dimensions and medium tags, artist dossier spotlights, and architectural room cards.
+- **Depth & Framing:** Layered optical micro-shadows for tactile paper depth and card elevation. Double hairlines and matting borders evoke physical gallery framing.
+- **Motion & Microinteractions:** Intentional, restrained CSS transitions (0.15s–0.25s) for hover states, card elevation, focus feedback, and smooth occupancy meter growth. Subtle page-entry reveals allowed. Must strictly respect `@media (prefers-reduced-motion: reduce)`.
+- **Navigation Architecture:** Distinctive gallery branding with desktop and mobile responsive navigation covering Home, Exhibitions, Artists, Artworks, and Spaces, plus a clearly segregated curatorial button to enter the Management Workspace (`dashboard.html`).
+- **Typography:** High-contrast editorial serif (`Playfair Display`, `Didot`, `Georgia`, serif) for display titles and placards. Reading serif (`Charter`, `Palatino`, `Georgia`, serif) for body copy. Tabular monospace (`ui-monospace`, `Cascadia Code`, `Menlo`, `Consolas`, monospace) for dates, currency, catalog numbers, and metadata. No web fonts or external network font downloads.
+- **Forbidden AI Slop:** Generic blue-purple gradients, glowing orbs, blob illustrations, glassmorphism, vague marketing slogans, fake statistics, floating badges, and SaaS/finance dashboard templates.
 
 ## 5. Data and architecture
 
@@ -70,16 +71,13 @@ If your first instinct is "modern", "sleek" or "clean SaaS", that is the wrong i
 
 ## 6. Workflow rules
 
-1. **Work one phase at a time.** The person gives you one phase prompt. Do only that. Do not start the next phase, do not "also improve" other files.
-2. **Plan first.** Before writing code, post a short plan: files you will create or change, and functions you will write. Then build.
-3. **Touch only the files the phase lists.** If you must change another file, say why before doing it.
-4. **Ask when unsure.** Ambiguity in the PRD, a missing rule, a conflict between PRD and this file: ask one clear question and stop. Do not guess and continue.
-5. **Do not invent features.** Anything not in the PRD is out of scope.
-6. **Verify before saying done.** Open the page in the browser tool (or reason through it if unavailable), check the console is clean, run the phase's checklist, and report what you checked and what you could not check.
-7. **Update `docs/EXPLAIN.md` at the end of every phase** (format below). This is required, not optional.
-8. **Commit message** you propose at the end: `phase N: short plain description`.
-9. Never rewrite working code from an earlier phase for style reasons.
-10. If you find a bug in an earlier phase, report it and fix it in the smallest possible change.
+1. **Work intentionally.** Focus on delivering the current milestone cleanly with robust verification.
+2. **Plan first.** Before writing code, verify requirements, plan the files to create or modify, and the functions to write.
+3. **Preserve data integrity.** Never alter the underlying `galleryData` schema or business rule logic.
+4. **Zero network calls.** All assets (SVGs, scripts, styles) must be completely local and load from `file://`.
+5. **Verify before saying done.** Test in browser, verify layout across desktop and mobile widths, check console is clean, and ensure data persists across refreshes.
+6. **Update `docs/EXPLAIN.md`** at the completion of each implementation milestone.
+
 
 ## 7. `docs/EXPLAIN.md` format
 
@@ -112,6 +110,6 @@ Also keep a "How the pages connect" section at the top that traces one full flow
 Ask yourself and fix before answering:
 - Did I add any library, font, CDN link, or build file?
 - Did I use any syntax from the "avoid" list?
-- Is there any gradient, shadow, blue, emoji, or decorative element?
+- Is there any external network dependency, marketing buzzword, or unexplainable code?
 - Could a first-semester student explain every line I wrote?
-- Did I do anything outside this phase?
+- Does every file stay under 200 lines and every function under 30 lines?

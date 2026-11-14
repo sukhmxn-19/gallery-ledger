@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 320" width="500" height="320">
+  <rect width="500" height="320" fill="#f0eae1"/>
+  <!-- Vanishing Perspective Tunnel -->
+  <polygon points="200,120 300,120 300,200 200,200" fill="#cfc2ad" stroke="#9e917d" stroke-width="1"/>
+  <!-- Left Wall -->
+  <polygon points="0,0 200,120 200,200 0,320" fill="#ded5c4" stroke="#baad98" stroke-width="1.5"/>
+  <!-- Right Wall -->
+  <polygon points="500,0 300,120 300,200 500,320" fill="#ded5c4" stroke="#baad98" stroke-width="1.5"/>
+  <!-- Ceiling with Track Light Dots -->
+  <polygon points="0,0 500,0 300,120 200,120" fill="#eae1d2"/>
+  <line x1="100" y1="60" x2="230" y2="120" stroke="#181715" stroke-width="2"/>
+  <line x1="400" y1="60" x2="270" y2="120" stroke="#181715" stroke-width="2"/>
+  <circle cx="140" cy="76" r="3" fill="#b37418"/>
+  <circle cx="180" cy="98" r="3" fill="#b37418"/>
+  <circle cx="360" cy="76" r="3" fill="#b37418"/>
+  <circle cx="320" cy="98" r="3" fill="#b37418"/>
+  <!-- Long Floor -->
+  <polygon points="0,320 200,200 300,200 500,320" fill="#a89b85"/>
+  <!-- Frames on Left & Right Wall -->
+  <polygon points="40,80 120,130 120,210 40,240" fill="#ffffff" stroke="#181715" stroke-width="1.5"/>
+  <polygon points="460,80 380,130 380,210 460,240" fill="#ffffff" stroke="#181715" stroke-width="1.5"/>
+  <text x="25" y="305" font-family="'Consolas', monospace" font-size="10" letter-spacing="1.5" fill="#3a342c">SPACE 03 · LONG CORRIDOR (CAPACITY: 8)</text>
+</svg>

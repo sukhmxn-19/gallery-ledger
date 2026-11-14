@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <defs>
+    <linearGradient id="aolBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1d1a"/>
+      <stop offset="100%" stop-color="#121110"/>
+    </linearGradient>
+    <linearGradient id="aolLightBeam" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdfbf7" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#e3a758" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+  <!-- Archival Canvas -->
+  <rect width="600" height="400" fill="url(#aolBg)"/>
+  <rect x="20" y="20" width="560" height="360" fill="none" stroke="#45413a" stroke-width="1"/>
+  <rect x="25" y="25" width="550" height="350" fill="none" stroke="#2e2b26" stroke-width="0.5"/>
+  
+  <!-- Curatorial Intersection: Material Paper Plane (Sukhmanpreet) -->
+  <polygon points="70,330 180,90 280,130 220,330" fill="#2d2a25" stroke="#7e7769" stroke-width="1"/>
+  <polygon points="180,90 280,130 250,220 140,160" fill="#ded7ca" fill-opacity="0.9" stroke="#b8ae9d" stroke-width="1.5"/>
+  
+  <!-- Curatorial Intersection: Architectural Light Shaft (Sonam) -->
+  <polygon points="260,40 440,40 510,340 330,340" fill="url(#aolLightBeam)"/>
+  <line x1="260" y1="40" x2="330" y2="340" stroke="#f0cf97" stroke-width="1.5" stroke-opacity="0.7"/>
+  <line x1="440" y1="40" x2="510" y2="340" stroke="#f0cf97" stroke-width="1.5" stroke-opacity="0.7"/>
+  
+  <!-- Curatorial Intersection: Celestial Orbit & Field Coordinate (Salik) -->
+  <circle cx="360" cy="180" r="110" fill="none" stroke="#6898b8" stroke-width="1" stroke-dasharray="3,3"/>
+  <ellipse cx="360" cy="180" rx="140" ry="60" fill="none" stroke="#e8a855" stroke-width="1.5"/>
+  <line x1="360" y1="60" x2="360" y2="300" stroke="#6898b8" stroke-width="0.75" stroke-opacity="0.6"/>
+  <line x1="210" y1="180" x2="510" y2="180" stroke="#6898b8" stroke-width="0.75" stroke-opacity="0.6"/>
+  <circle cx="460" cy="195" r="4" fill="#ffffff"/>
+  <circle cx="260" cy="165" r="3" fill="#e8a855"/>
+
+  <!-- Plinth Line -->
+  <line x1="50" y1="340" x2="550" y2="340" stroke="#d4ccbd" stroke-width="1.5"/>
+
+  <!-- Archival Typography -->
+  <rect x="45" y="45" width="220" height="26" fill="#181715" stroke="#787367" stroke-width="0.5"/>
+  <text x="55" y="62" font-family="'Consolas', 'Menlo', monospace" font-size="11" letter-spacing="1.5" fill="#f8f6f0">INAUGURAL CURATORIAL SURVEY</text>
+  <text x="45" y="325" font-family="'Playfair Display', Georgia, serif" font-size="24" font-style="italic" fill="#ffffff">The Act of Looking</text>
+  <text x="555" y="365" font-family="'Consolas', 'Menlo', monospace" font-size="10" letter-spacing="1" fill="#a89f8f" text-anchor="end">OBSERVATION · MATERIAL · LIGHT · PERSPECTIVE</text>
+</svg>
+

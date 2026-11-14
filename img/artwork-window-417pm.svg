@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="winLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff8eb" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#f0be65" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#d48c37" stop-opacity="0.25"/>
+    </linearGradient>
+  </defs>
+  <!-- Deep Shadowed Interior Wall Tone -->
+  <rect width="400" height="300" fill="#25221d"/>
+  
+  <!-- Back Wall and Floorboard Junction -->
+  <polygon points="20,20 380,20 380,180 20,180" fill="#2c2721"/>
+  <polygon points="20,180 380,180 380,280 20,280" fill="#1d1a16"/>
+  <line x1="20" y1="180" x2="380" y2="180" stroke="#3d372f" stroke-width="1"/>
+  <line x1="80" y1="180" x2="60" y2="280" stroke="#2a251f" stroke-width="1"/>
+  <line x1="180" y1="180" x2="160" y2="280" stroke="#2a251f" stroke-width="1"/>
+  <line x1="280" y1="180" x2="270" y2="280" stroke="#2a251f" stroke-width="1"/>
+
+  <!-- Low-Angle Afternoon Light Beam (4:17 PM) Cast Through Window Mullions -->
+  <polygon points="60,30 220,30 360,250 140,250" fill="url(#winLight)"/>
+  
+  <!-- Window Mullion Shadow Crosses -->
+  <polygon points="135,30 145,30 255,250 245,250" fill="#25221d" fill-opacity="0.75"/>
+  <polygon points="60,110 240,110 310,140 100,140" fill="#25221d" fill-opacity="0.6"/>
+
+  <!-- Radiant Light Spill on Baseboard -->
+  <line x1="160" y1="180" x2="320" y2="180" stroke="#fce5b3" stroke-width="2.5"/>
+
+  <!-- Archival plate notation -->
+  <text x="28" y="272" font-family="'Consolas', 'Menlo', monospace" font-size="8.5" letter-spacing="1" fill="#a39886">WINDOW, 4:17 PM · CHIAROSCURO PIGMENT · SONAM VERMA</text>
+</svg>
+

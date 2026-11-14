@@ -1,28 +1,30 @@
-// Exhibition view logic: header details, placement eligibility, and room groupings.
+// Individual exhibition experience, room occupancy visualizations, and curatorial placement desk.
 
 const notFoundView = document.getElementById('not-found');
 const exhibitionView = document.getElementById('exhibition-view');
+const titleEl = document.getElementById('exhibition-title');
+const datesEl = document.getElementById('exhibition-dates');
+const statusEl = document.getElementById('exhibition-status');
+const themeEl = document.getElementById('exhibition-theme');
+const descEl = document.getElementById('exhibition-desc');
+const heroImgEl = document.getElementById('exhibition-hero-img');
 const editLink = document.getElementById('edit-exhibition-link');
 const catalogueLink = document.getElementById('open-catalogue-link');
-const titleEl = document.getElementById('exhibition-title');
-const metaEl = document.getElementById('exhibition-meta');
-const descEl = document.getElementById('exhibition-desc');
+const heroCatalogueBtn = document.getElementById('hero-catalogue-btn');
+const bannerCatalogueBtn = document.getElementById('banner-catalogue-btn');
 const placementForm = document.getElementById('placement-form');
 const artworkSelect = document.getElementById('placement-artwork');
 const spaceSelect = document.getElementById('placement-space');
 const placeBtn = document.getElementById('place-btn');
 const disabledReason = document.getElementById('disabled-reason');
-const placementsContainer = document.getElementById('placements-container');
+const roomsContainer = document.getElementById('rooms-container');
 let galleryData = null;
 let currentExhibition = null;
 
 // Filters artworks eligible for this exhibition under rules BR5, BR6, and BR9.
 function getEligibleArtworks(exId) {
   return galleryData.artworks.filter(function (art) {
-    if (checkArtworkNotSold(art)) return false;
-    if (checkArtworkNotPlacedTwice(galleryData, exId, art.id)) return false;
-    if (checkArtworkOverlap(galleryData, exId, art.id)) return false;
-    return true;
+    return !checkArtworkNotSold(art) && !checkArtworkNotPlacedTwice(galleryData, exId, art.id) && !checkArtworkOverlap(galleryData, exId, art.id);
   });
 }
 
@@ -44,22 +46,14 @@ function getEligibleSpaces(exId) {
 
 // Updates the place button state and reason when lists are empty.
 function updatePlacementButton(hasArtworks, hasSpaces) {
-  if (!hasArtworks || !hasSpaces) {
-    placeBtn.disabled = true;
-    if (!hasArtworks && !hasSpaces) {
-      disabledReason.textContent = 'No eligible artworks or rooms with remaining capacity available.';
-    } else if (!hasArtworks) {
-      disabledReason.textContent = 'No eligible artworks available to place in this exhibition.';
-    } else {
-      disabledReason.textContent = 'No gallery spaces with remaining capacity available.';
-    }
-  } else {
-    placeBtn.disabled = false;
-    disabledReason.textContent = '';
-  }
+  placeBtn.disabled = !hasArtworks || !hasSpaces;
+  if (!hasArtworks && !hasSpaces) disabledReason.textContent = 'No eligible artworks or rooms with capacity remaining.';
+  else if (!hasArtworks) disabledReason.textContent = 'No eligible artworks available to place in this exhibition.';
+  else if (!hasSpaces) disabledReason.textContent = 'No display rooms with remaining wall capacity available.';
+  else disabledReason.textContent = '';
 }
 
-// Populates dropdowns with eligible artworks and available spaces or shows why disabled.
+// Populates dropdowns with eligible artworks and available spaces.
 function populatePlacementDropdowns(exId) {
   artworkSelect.innerHTML = '';
   spaceSelect.innerHTML = '';
@@ -77,91 +71,85 @@ function populatePlacementDropdowns(exId) {
   updatePlacementButton(arts.length > 0, spaces.length > 0);
 }
 
-// Renders the exhibition header, theme, dates, status, and navigation links.
-function renderExhibitionHeader(ex) {
+// Renders the exhibition hero header, dates, status, and navigation links.
+function renderExhibitionHero(ex) {
   titleEl.textContent = ex.title;
   const status = getExhibitionStatus(ex);
-  const dates = `${formatDate(ex.startDate)} to ${formatDate(ex.endDate)}`;
-  const metaParts = [`Dates: ${dates}`, `Status: ${status}`];
-  if (ex.theme) metaParts.push(`Theme: ${ex.theme}`);
-  metaEl.textContent = metaParts.join(' · ');
-  descEl.textContent = ex.description || '';
+  statusEl.innerHTML = renderStatusBadge(status);
+  datesEl.innerHTML = `${formatDate(ex.startDate)} &ndash; ${formatDate(ex.endDate)}`;
+  themeEl.textContent = ex.theme ? `Theme: ${ex.theme}` : 'General Curatorial Collection';
+  descEl.textContent = ex.description || 'Curated seasonal exhibition survey.';
+  heroImgEl.src = getExhibitionImage(ex);
+  heroImgEl.alt = ex.title;
   editLink.href = `exhibitions.html?id=${ex.id}`;
   catalogueLink.href = `catalogue.html?id=${ex.id}`;
+  heroCatalogueBtn.href = `catalogue.html?id=${ex.id}`;
+  bannerCatalogueBtn.href = `catalogue.html?id=${ex.id}`;
 }
 
-// Builds HTML table rows for placements within a single space.
-function renderSpaceTable(space, inSpace) {
-  let html = `<h3>${escapeHtml(space ? space.name : 'Room')}, ${inSpace.length} / ${space ? space.capacity : 0}</h3>`;
-  html += '<table><thead><tr><th>Title</th><th>Artist</th><th>Medium</th><th class="num">Price</th><th>Status</th><th>Action</th></tr></thead><tbody>';
-  for (let j = 0; j < inSpace.length; j++) {
-    const p = inSpace[j];
-    const art = findArtworkById(galleryData, p.artworkId);
-    const artist = art ? findArtistById(galleryData, art.artistId) : null;
-    const sClass = (art && art.status === 'Sold') ? ' class="sold"' : '';
-    html += `<tr><td>${escapeHtml(art ? art.title : '—')}</td><td>${escapeHtml(artist ? artist.name : '—')}</td><td>${escapeHtml(art ? art.medium : '—')}</td><td class="num">${formatPrice(art ? art.price : 0)}</td><td${sClass}>${escapeHtml(art ? art.status : '—')}</td><td><button type="button" class="delete btn-remove" data-id="${p.id}">Remove</button></td></tr>`;
-  }
-  return html + '</tbody></table>';
+// Builds the HTML card for one placed artwork placard.
+function buildArtworkPlacard(placement) {
+  const art = findArtworkById(galleryData, placement.artworkId);
+  const artist = art ? findArtistById(galleryData, art.artistId) : null;
+  const artistName = artist ? artist.name : 'Unknown Artist';
+  const title = art ? art.title : 'Untitled Piece';
+  const medium = art ? art.medium : 'Fine Art';
+  const price = art ? formatPrice(art.price) : '—';
+  const img = art ? getArtworkImage(art) : 'img/artwork-morning-shadows.svg';
+  return `<article class="placard-item"><img src="${img}" alt="${escapeHtml(title)}" class="placard-img"><div class="placard-content"><div class="placard-meta-top"><span class="placard-medium">${escapeHtml(medium)}</span>${renderStatusBadge(art ? art.status : '')}</div><h4 class="placard-title">${escapeHtml(title)}</h4><p class="placard-artist"><a href="artist.html?id=${art ? art.artistId : 0}">${escapeHtml(artistName)}</a> (${art ? art.year || 'n.d.' : ''})</p><div class="placard-foot"><span class="placard-price">${price}</span><button type="button" class="delete btn-remove" data-id="${placement.id}">Remove</button></div></div></article>`;
 }
 
-// Renders existing artwork placements grouped by space with remove buttons.
-function renderPlacements(exId) {
-  placementsContainer.innerHTML = '';
+// Renders existing artwork placements grouped by gallery room with occupancy meters.
+function renderRoomsAndPlacements(exId) {
+  roomsContainer.innerHTML = '';
   const placements = getPlacementsForExhibition(galleryData, exId);
   if (placements.length === 0) {
-    placementsContainer.innerHTML = '<p>No artworks placed in this exhibition yet.</p>';
+    roomsContainer.innerHTML = '<div class="empty-curatorial"><p>No artworks placed in this exhibition yet. Use the Curatorial Placement Desk below to assign works to rooms.</p></div>';
     return;
   }
   const spaceIds = [];
   for (let i = 0; i < placements.length; i++) {
     if (spaceIds.indexOf(placements[i].spaceId) === -1) spaceIds.push(placements[i].spaceId);
   }
-  let fullHtml = '';
+  let html = '';
   for (let s = 0; s < spaceIds.length; s++) {
     const space = findSpaceById(galleryData, spaceIds[s]);
     const inSpace = placements.filter(function (p) { return p.spaceId === spaceIds[s]; });
-    fullHtml += renderSpaceTable(space, inSpace);
+    const cap = space ? space.capacity : inSpace.length;
+    let cardsHtml = '';
+    for (let c = 0; c < inSpace.length; c++) cardsHtml += buildArtworkPlacard(inSpace[c]);
+    html += `<section class="room-section"><div class="room-header"><div class="room-title-block"><h3>${escapeHtml(space ? space.name : 'Gallery Room')}</h3><p class="room-note">${escapeHtml(space ? space.note || 'Display wing' : '')}</p></div><div class="room-meter-col">${renderOccupancyBar(inSpace.length, cap)}</div></div><div class="placard-grid">${cardsHtml}</div></section>`;
   }
-  placementsContainer.innerHTML = fullHtml;
+  roomsContainer.innerHTML = html;
 }
 
-// Handles placing an artwork in a space after validating BR5 through BR9.
+// Handles placing an artwork in a room after validating BR5 through BR9.
 function handlePlacementSubmit(event) {
   event.preventDefault();
   const artId = Number(artworkSelect.value);
   const spaceId = Number(spaceSelect.value);
   const error = checkPlacement(galleryData, currentExhibition.id, artId, spaceId);
-  if (error) {
-    showMessage(error, true);
-    return;
-  }
-  galleryData.placements.push({
-    id: getNextId(galleryData),
-    exhibitionId: currentExhibition.id,
-    artworkId: artId,
-    spaceId: spaceId
-  });
+  if (error) { showMessage(error, true); return; }
+  galleryData.placements.push({ id: getNextId(galleryData), exhibitionId: currentExhibition.id, artworkId: artId, spaceId: spaceId });
   saveData(galleryData);
-  showMessage('Artwork placed successfully.', false);
+  showMessage('Artwork assigned to room successfully.', false);
   populatePlacementDropdowns(currentExhibition.id);
-  renderPlacements(currentExhibition.id);
+  renderRoomsAndPlacements(currentExhibition.id);
 }
 
-// Handles clicking the Remove button to unassign an artwork from a room.
-function handlePlacementsClick(event) {
+// Handles unassigning an artwork from a gallery room.
+function handleRoomsClick(event) {
   const btn = event.target;
   if (!btn.classList.contains('btn-remove')) return;
   const placeId = Number(btn.getAttribute('data-id'));
-  galleryData.placements = galleryData.placements.filter(function (p) {
-    return p.id !== placeId;
-  });
+  galleryData.placements = galleryData.placements.filter(function (p) { return p.id !== placeId; });
   saveData(galleryData);
-  showMessage('Placement removed.', false);
+  showMessage('Artwork placement removed.', false);
   populatePlacementDropdowns(currentExhibition.id);
-  renderPlacements(currentExhibition.id);
+  renderRoomsAndPlacements(currentExhibition.id);
 }
 
-// Initializes the exhibition details and placement view.
+// Initializes the exhibition details view and binds action listeners.
 function initExhibitionPage() {
   renderNav('Exhibitions');
   galleryData = loadData();
@@ -174,11 +162,11 @@ function initExhibitionPage() {
   }
   notFoundView.hidden = true;
   exhibitionView.hidden = false;
-  renderExhibitionHeader(currentExhibition);
+  renderExhibitionHero(currentExhibition);
   populatePlacementDropdowns(currentExhibition.id);
-  renderPlacements(currentExhibition.id);
+  renderRoomsAndPlacements(currentExhibition.id);
   placementForm.addEventListener('submit', handlePlacementSubmit);
-  placementsContainer.addEventListener('click', handlePlacementsClick);
+  roomsContainer.addEventListener('click', handleRoomsClick);
 }
 
 initExhibitionPage();

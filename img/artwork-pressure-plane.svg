@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="ppRag" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f8f4ec"/>
+      <stop offset="100%" stop-color="#ebe4d5"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="#f0ebe0"/>
+  <rect x="20" y="20" width="360" height="260" fill="url(#ppRag)" stroke="#d4ccbe" stroke-width="1"/>
+  
+  <!-- Outer Debossed Plate Border (blind debossing) -->
+  <rect x="50" y="45" width="300" height="200" fill="none" stroke="#beb39f" stroke-width="2"/>
+  <rect x="53" y="48" width="294" height="194" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Heavy Mineral Ink Print Block (Pressure) -->
+  <rect x="90" y="70" width="130" height="150" fill="#211f1d"/>
+  <!-- Intersecting Offset Mineral Gray Block (Plane) -->
+  <rect x="180" y="90" width="130" height="110" fill="#4a453e" fill-opacity="0.9" stroke="#181715" stroke-width="1.5"/>
+  <!-- Tension Core Negative Window -->
+  <rect x="140" y="110" width="80" height="70" fill="#ded5c4" stroke="#ffffff" stroke-width="1"/>
+  <line x1="90" y1="70" x2="220" y2="220" stroke="#9e2a1b" stroke-width="1.5"/>
+
+  <!-- Fine Intaglio Register Marks at Plate Corners -->
+  <line x1="45" y1="45" x2="40" y2="45" stroke="#787367" stroke-width="1"/>
+  <line x1="45" y1="45" x2="45" y2="40" stroke="#787367" stroke-width="1"/>
+  <line x1="355" y1="45" x2="360" y2="45" stroke="#787367" stroke-width="1"/>
+  <line x1="355" y1="45" x2="355" y2="40" stroke="#787367" stroke-width="1"/>
+  
+  <!-- Archival plate notation -->
+  <text x="28" y="272" font-family="'Consolas', 'Menlo', monospace" font-size="8.5" letter-spacing="1" fill="#787367">PRESSURE / PLANE · DEBOSSING &amp; MINERAL INK · SUKHMANPREET KAUR</text>
+</svg>
+

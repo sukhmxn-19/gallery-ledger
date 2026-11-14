@@ -1,9 +1,14 @@
 // Data storage layer and gallery business rules.
 
-// Loads gallery data from localStorage or returns default structure.
+// Loads gallery data from localStorage or initializes curated demo dataset.
 function loadData() {
   const blank = { nextId: 1, artists: [], artworks: [], spaces: [], exhibitions: [], placements: [] };
   const raw = localStorage.getItem('galleryData');
+  if (raw === null && typeof getCuratedDemoData === 'function') {
+    const demo = getCuratedDemoData();
+    saveData(demo);
+    return demo;
+  }
   if (!raw) return blank;
   try { return JSON.parse(raw) || blank; } catch (err) { return blank; }
 }
@@ -11,9 +16,7 @@ function loadData() {
 function saveData(data) { localStorage.setItem('galleryData', JSON.stringify(data)); }
 // Returns next available id and increments counter.
 function getNextId(data) {
-  const id = data.nextId;
-  data.nextId++;
-  return id;
+  const id = data.nextId; data.nextId++; return id;
 }
 
 // Finds an artist by id.

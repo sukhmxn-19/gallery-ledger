@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exhibitions - Gallery Ledger</title>
+  <title>Exhibitions Programme - Gallery Ledger</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -11,67 +11,137 @@
     <nav id="nav"></nav>
   </header>
 
-  <main>
-    <h1>Exhibitions</h1>
+  <main class="animate-in">
+    <!-- Editorial Page Introduction -->
+    <div class="exhibitions-intro">
+      <div class="exhibitions-header-row">
+        <div>
+          <div class="section-tag">SEASON 2026/2027 · ARCHIVAL PROGRAMME</div>
+          <h1>Exhibitions Programme</h1>
+          <p class="page-subtitle">Curated seasonal installations, spatial allocations, and retrospective collection surveys</p>
+        </div>
+        <div>
+          <button type="button" id="toggle-admin-btn" class="btn admin-toggle-btn">✦ Schedule Exhibition</button>
+        </div>
+      </div>
+    </div>
+
     <div id="message" class="message"></div>
 
-    <div class="split">
-      <div>
-        <h2 id="form-heading">Create exhibition</h2>
-        <form id="exhibition-form">
-          <input type="hidden" id="exhibition-id" value="">
-
-          <div class="field">
-            <label for="exhibition-title">Title</label>
-            <input type="text" id="exhibition-title" required>
-          </div>
-
-          <div class="field">
-            <label for="exhibition-theme">Theme</label>
-            <input type="text" id="exhibition-theme" placeholder="e.g. Modern Indian Printmaking">
-          </div>
-
-          <div class="field">
-            <label for="exhibition-description">Description</label>
-            <textarea id="exhibition-description" maxlength="400" placeholder="Max 400 characters"></textarea>
-          </div>
-
-          <div class="field">
-            <label for="exhibition-start">Start date</label>
-            <input type="date" id="exhibition-start" required>
-          </div>
-
-          <div class="field">
-            <label for="exhibition-end">End date</label>
-            <input type="date" id="exhibition-end" required>
+    <!-- Collapsible Curatorial Scheduling Desk -->
+    <div id="admin-panel" class="admin-panel" hidden>
+      <h2 id="form-heading">Schedule New Exhibition</h2>
+      <p class="label-meta" style="margin-top:-6px; margin-bottom:16px;">Curatorial office tool to schedule exhibition dates, themes, and archival descriptions with automatic overlap protection.</p>
+      
+      <form id="exhibition-form">
+        <input type="hidden" id="exhibition-id" value="">
+        <div class="admin-grid">
+          <div>
+            <div class="field">
+              <label for="exhibition-title">Exhibition Title</label>
+              <input type="text" id="exhibition-title" placeholder="e.g. Modern Relief & Architecture" required>
+            </div>
+            <div class="field">
+              <label for="exhibition-theme">Curatorial Theme</label>
+              <input type="text" id="exhibition-theme" placeholder="e.g. Contemporary Graphics & Monotypes">
+            </div>
+            <div class="field">
+              <label for="exhibition-description">Curatorial Description</label>
+              <textarea id="exhibition-description" maxlength="400" placeholder="Exhibition statement, curatorial premise, and historical context (max 400 characters)"></textarea>
+            </div>
           </div>
 
           <div>
-            <button type="submit" id="submit-btn">Create exhibition</button>
-            <button type="button" id="cancel-btn" class="secondary" hidden>Cancel</button>
+            <div class="field">
+              <label for="exhibition-start">Start Date</label>
+              <input type="date" id="exhibition-start" required>
+            </div>
+            <div class="field">
+              <label for="exhibition-end">End Date</label>
+              <input type="date" id="exhibition-end" required>
+            </div>
+            <div class="field" style="margin-top:10px;">
+              <p class="label-meta"><strong>Scheduling Policy:</strong> End date must not precede start date. Overlapping dates with existing placements across rooms and artworks are checked on save.</p>
+            </div>
           </div>
-        </form>
-      </div>
+        </div>
 
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Dates</th>
-              <th>Status</th>
-              <th class="num">Placements</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="exhibitions-table-body">
-          </tbody>
-        </table>
-        <p id="empty-state" hidden>No exhibitions recorded yet.</p>
+        <div class="admin-actions">
+          <button type="submit" id="submit-btn">Save Exhibition</button>
+          <button type="button" id="cancel-btn" class="secondary" hidden>Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Curatorial Filter Navigation Bar -->
+    <div class="filter-bar" id="filter-bar">
+      <button type="button" class="filter-btn active" data-filter="all">All Exhibitions</button>
+      <button type="button" class="filter-btn" data-filter="on-now">Currently on View</button>
+      <button type="button" class="filter-btn" data-filter="upcoming">Upcoming Shows</button>
+      <button type="button" class="filter-btn" data-filter="closed">Past Archives</button>
+    </div>
+
+    <!-- Featured Exhibition Spotlight -->
+    <div id="featured-showcase-container"></div>
+
+    <!-- Exhibitions Directory Grid -->
+    <div id="directory-grid-container" class="directory-grid"></div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="empty-curatorial" hidden>
+      <h3>No Exhibitions Found</h3>
+      <p>There are no exhibitions matching the active filter selection in the permanent registry.</p>
+      <div style="margin-top:16px;">
+        <button type="button" id="empty-schedule-btn" class="btn">Schedule an Exhibition</button>
       </div>
     </div>
   </main>
 
+  <!-- Multi-column Curatorial Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <span class="brand">GALLERY LEDGER</span>
+        <p class="footer-tagline">Contemporary Art Archive &amp; Exhibition Registry</p>
+        <p class="footer-about">
+          A curatorial platform designed for physical exhibition scheduling, room allocations, artwork assignment, and collection cataloguing. Runs entirely client-side without third-party dependencies.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>The Gallery</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="exhibitions.html">Exhibitions</a></li>
+          <li><a href="artworks.html">Collection</a></li>
+          <li><a href="artists.html">Artists</a></li>
+          <li><a href="spaces.html">Gallery Spaces</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Workspace</h4>
+        <ul>
+          <li><a href="dashboard.html">Curatorial Overview</a></li>
+          <li><a href="artists.html">Register Artist</a></li>
+          <li><a href="artworks.html">Catalogue Artwork</a></li>
+          <li><a href="spaces.html">Manage Spaces</a></li>
+          <li><a href="exhibitions.html">Schedule Exhibition</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Academic Attribution</h4>
+        <p><strong>Course:</strong> CSE326 (1st Semester, LPU)</p>
+        <p><strong>Project IDs:</strong> RK2P26EVA29 / RK2P26EVA30</p>
+        <p><strong>Team:</strong> Sukhmanpreet Kaur, Sonam Verma, Salik Riyaz</p>
+        <p class="footer-built">Vanilla HTML5 · CSS3 · Pure JavaScript · LocalStorage</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Gallery Ledger. Curatorial Archival System.</span>
+      <span>Completely Offline &amp; Examiner Ready</span>
+    </div>
+  </footer>
+
+  <script src="js/demo-data.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/exhibitions.js"></script>

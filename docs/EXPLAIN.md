@@ -1,39 +1,49 @@
 # How the pages connect
 
-This trace follows one complete workflow across the gallery system from initial record creation to printable catalogue output, naming the primary function executing at each step:
+This trace follows one complete workflow across the gallery platform from the public landing experience to curatorial management and printable catalogue output, naming the primary function executing at each step:
 
-1. **Add Artist**:
+0. **Public Gallery Homepage**:
+   - Visitor opens `index.html`. `initHomePage()` renders the masthead navigation (`renderNav('Home')`), reads `loadData()`, and renders the collection overview via `renderHomePage()`.
+   - The visitor explores the editorial hero section ("Where art finds its place"), live collection metrics ticker (`renderHeroTicker()`), current and upcoming exhibitions (`renderExhibitions()`), curated artworks showcase (`renderArtworks()`), living artists roster (`renderArtists()`), architectural gallery spaces with occupancy meters (`renderSpaces()`), and the five-stage methodology sequence.
+   - Visitor can either click an exhibition to view its details or click "Workspace" / "Manage Collection" to enter `dashboard.html`.
+
+1. **Enter Curatorial Workspace**:
+   - Staff opens `dashboard.html`. `initDashboard()` renders `renderNav('Workspace')`, reads `loadData()`, and calls `renderDashboard()`.
+   - If empty, staff can click "Load Sample Collection" to seed demonstration records via `loadSampleData()`.
+   - Four inventory summary cards are rendered (`renderCounts()`), alongside running and upcoming exhibition cards with room occupancy meters (`buildSpaceUsageHtml()`, `renderOnNowExhibitions()`).
+
+2. **Add Artist**:
    - User opens `artists.html`. `initArtistsPage()` calls `loadData()` and `renderArtistsTable()`.
    - User fills in name, birth year, nationality, style, bio, and clicks "Add artist".
    - `handleFormSubmit()` validates inputs using `validateArtist()` (checking `checkArtistName()` for BR1 and `checkRequired()` for BR15).
    - Generates ID using `getNextId()`, pushes new artist to `data.artists`, calls `saveData()`, and updates the table via `renderArtistsTable()`.
 
-2. **Add Artwork**:
+3. **Add Artwork**:
    - User opens `artworks.html`. `initArtworksPage()` calls `loadData()` and populates the artist selector via `populateArtistDropdowns()`.
    - User selects the artist, enters title, year, medium, size, price, and status, and submits.
    - `handleFormSubmit()` calls `validateArtwork()` (validating positive price, valid year bounds, and buyer requirement if sold).
    - Generates ID via `getNextId()`, appends artwork to `data.artworks`, calls `saveData()`, and updates the table via `renderArtworksTable()`.
 
-3. **Create Space**:
+4. **Create Space**:
    - User opens `spaces.html`. `initSpacesPage()` calls `loadData()` and `renderSpacesTable()`.
    - User enters space name (e.g., "North Hall"), capacity (1–100), and note, then submits.
    - `handleFormSubmit()` calls `validateSpace()` (verifying uniqueness via `checkSpaceName()` for BR3 and capacity range for BR15).
    - Generates ID via `getNextId()`, appends space to `data.spaces`, calls `saveData()`, and refreshes `renderSpacesTable()`.
 
-4. **Create Exhibition**:
+5. **Create Exhibition**:
    - User opens `exhibitions.html`. `initExhibitionsPage()` calls `loadData()` and `renderExhibitionsTable()`.
    - User enters title, theme, description, start date, and end date, then submits.
    - `handleFormSubmit()` calls `validateExhibition()` (validating uniqueness with `checkExhibitionTitle()` for BR3 and date order with `checkExhibitionDatesOrder()` for BR4).
    - Generates ID via `getNextId()`, appends exhibition to `data.exhibitions`, calls `saveData()`, and redraws table sorted newest first.
 
-5. **Place Artwork in Exhibition**:
+6. **Place Artwork in Exhibition**:
    - User clicks the exhibition title link, opening `exhibition.html?id=N`.
    - `initExhibitionPage()` reads `?id=` via `getIdFromUrl()`, queries `findExhibitionById()`, and populates eligible dropdowns via `populatePlacementDropdowns()` and existing assignments via `renderPlacements()`.
    - User picks an eligible artwork and space with remaining capacity, then clicks "Place artwork".
    - `handlePlacementSubmit()` verifies `checkPlacement()` covering BR5 (not Sold), BR6 (no artwork schedule overlap), BR7 (no room double-booking), BR8 (room capacity limit), and BR9 (no duplicate placement).
    - Assigns placement ID with `getNextId()`, appends to `data.placements`, calls `saveData()`, and updates room groupings and dropdown options.
 
-6. **Open Printable Catalogue**:
+7. **Open Printable Catalogue**:
    - User clicks "Open catalogue", navigating to `catalogue.html?id=N`.
    - `initCataloguePage()` reads URL query ID, queries `findExhibitionById()`, and fetches placements with `getPlacementsForExhibition()`.
    - `renderCatalogueHeader()` renders the exhibition title, dates, theme, and description.
@@ -256,3 +266,218 @@ Purpose: Displays gallery inventory counts, lists active and upcoming exhibition
 Viva questions this file may raise:
 - Why are exhibition dates in the sample data calculated dynamically relative to today? To guarantee that whenever an examiner or visitor loads the sample data, they will always see an active 'On now' exhibition and an 'Upcoming' exhibition without date values expiring.
 - Why can sample data only be loaded into an empty gallery? To protect existing user records from being overwritten or creating duplicate conflicting IDs and schedules.
+
+## Phase 10: Curatorial Visual Foundation & Dashboard Redesign
+Files: css/style.css, js/ui.js, index.html, js/dashboard.js
+
+### ui.js
+Purpose: Provides reusable user-interface helpers for masthead navigation, curatorial status badges, visual room occupancy meter bars, currency/date formatting, and message banners.
+- getArchivalTodayString(): Formats the current local date into an archival day-month-year string. Called from: renderNav.
+- renderNav(activePage): Draws the sticky masthead with gallery brandmark, subtitle, navigation links, active page highlight, and live date. Called from: all pages on load.
+- renderStatusBadge(status): Generates an editorial badge with indicator dot for exhibitions and artworks. Called from: dashboard, exhibitions, artworks.
+- renderOccupancyBar(current, capacity): Builds an accessible graphical occupancy meter bar with percentage fill and capacity ratio. Called from: buildSpaceUsageHtml, spaces, exhibition view.
+Viva questions this file may raise:
+- How does renderOccupancyBar determine its visual color tiers? It computes the percentage of room capacity: under 70% gets sage green, 70% to 99% gets warm ochre, and 100% full gets vermilion red.
+
+### dashboard.js
+Purpose: Renders the curatorial overview dashboard with archival stat counters, exhibition feature cards, graphical room occupancy bars, and demonstration maintenance tools.
+- buildSpaceUsageHtml(data, exId, spaceId): Renders a room occupancy block featuring the space name and a visual capacity meter bar. Called from: renderOnNowExhibitions.
+- renderOnNowExhibitions(data): Displays live exhibitions as prominent feature cards with dates, curatorial notes, spatial occupancy bars, and direct action buttons. Called from: renderDashboard.
+- renderUpcomingExhibitions(data): Displays scheduled upcoming exhibitions in chronological order with dates and planned artwork counts. Called from: renderDashboard.
+Viva questions this file may raise:
+- How does the dashboard show room capacity without guessing future bookings? It checks placements specifically associated with each running exhibition and compares them to the physical capacity of the assigned gallery hall.
+
+## Phase 11: Public Art Gallery Redirection & Homepage Reconstruction
+Files: index.html, dashboard.html, js/home.js, js/dashboard.js, js/ui.js, css/style.css, img/hero-gallery.svg, img/exhibition-*.svg, img/artwork-*.svg, img/space-*.svg, img/artist-silhouette.svg
+
+### home.js
+Purpose: Manages dynamic rendering of the public art gallery homepage, connecting stored exhibition, artwork, artist, and space data with local visual plates and live archive metrics.
+- getArtworkImage(artwork): Maps an artwork id to its corresponding local SVG plate. Called from: buildArtworkCard.
+- getExhibitionImage(exhibition): Maps an exhibition id to its curated local SVG visual plate. Called from: buildExhibitionCard.
+- getSpaceImage(space): Maps a gallery space to its architectural perspective SVG. Called from: buildSpaceCard.
+- renderHeroTicker(data): Renders the collection summary statistics in the hero section. Called from: renderHomePage.
+- buildExhibitionCard(data, ex): Constructs the HTML card for a featured exhibition with image plate, dates, and buttons. Called from: renderExhibitions.
+- renderExhibitions(data): Filters and draws on now and upcoming exhibitions into the programme section. Called from: renderHomePage.
+- buildArtworkCard(data, art): Constructs the HTML card for an artwork with medium, price in INR, and availability badge. Called from: renderArtworks.
+- renderArtworks(data): Renders up to six curated catalogued artworks into the collection showcase grid. Called from: renderHomePage.
+- buildArtistCard(data, artist): Constructs an artist spotlight card with silhouette emblem, style, bio, and catalogued work count. Called from: renderArtists.
+- renderArtists(data): Renders registered artist profile cards into the roster spotlight. Called from: renderHomePage.
+- buildSpaceCard(data, space): Constructs an architectural space card with room SVG and occupancy meter. Called from: renderSpaces.
+- renderSpaces(data): Renders physical gallery display rooms into the spaces grid. Called from: renderHomePage.
+- renderHomePage(): Coordinates rendering across all five homepage sections and checks empty state. Called from: initHomePage.
+- initHomePage(): Initializes the navigation, loads storage data, and triggers homepage rendering. Called from: end of file on startup.
+Viva questions this file may raise:
+- Why does the homepage load data from localStorage instead of hardcoding featured artworks? To maintain unified data integration with the Curatorial Workspace, ensuring that any artworks, artists, or exhibitions added or placed by staff immediately appear across the public gallery presentation.
+- Why are visual plates stored locally as SVGs rather than fetched from external image URLs? To guarantee that the site functions 100% offline via file:// with zero third-party network dependencies, maintaining privacy, stability, and fast rendering.
+
+## Phase 12: Exhibitions Experience: From Records to Real Exhibitions
+Files: exhibitions.html, js/exhibitions.js, exhibition.html, js/exhibition.js, css/style.css
+
+### exhibitions.js
+Purpose: Powers the exhibitions directory with dynamic category filtering, prominent live exhibition spotlights, and a collapsible curatorial scheduling desk.
+- getExhibitionImage(ex): Maps an exhibition id to its curated SVG visual plate. Called from: buildExhibitionCard.
+- validateExhibition(title, start, end, desc, editId): Enforces required fields, date order, description length, and clash rules. Called from: handleFormSubmit.
+- toggleAdminDesk(show): Toggles visibility of the collapsible curatorial scheduling desk panel. Called from: action buttons.
+- resetExhibitionForm(): Clears inputs and resets form text to create mode. Called from: cancel button and after saving.
+- setFormForEdit(ex): Pre-populates fields with an exhibition record and opens the desk in edit mode. Called from: handleCardActionClick and URL query params.
+- buildExhibitionCard(ex, isSpotlight): Generates HTML for either an asymmetric featured spotlight or an editorial directory card. Called from: renderExhibitionsDisplay.
+- getFilteredExhibitions(): Sorts exhibitions newest-first and filters by active status tab. Called from: renderExhibitionsDisplay.
+- renderExhibitionsDisplay(): Coordinates rendering the featured exhibition spotlight and directory cards. Called from: init and filter clicks.
+- saveExhibition(id, title, theme, desc, start, end): Creates or updates an exhibition in localStorage. Called from: handleFormSubmit.
+- handleFormSubmit(event): Validates inputs, saves the exhibition, and updates the view. Called from: form submit listener.
+- handleCardActionClick(event): Handles card Edit and Delete button clicks, confirming and cascading deletions to placements. Called from: click listeners on exhibition cards.
+- handleFilterClick(event): Toggles active tab and re-filters the display without page reloads. Called from: filter bar click listener.
+- initExhibitionsPage(): Initializes navigation, loads storage data, and attaches all listeners. Called from: end of file on startup.
+Viva questions this file may raise:
+- Why is the exhibition management form hidden by default in a collapsible curatorial desk? To separate public visitor discovery from staff administration, presenting an art-directed exhibition programme while preserving instant access to scheduling tools.
+- How does the page filter exhibitions without reloading? It uses plain JavaScript array filtering over galleryData.exhibitions in memory and re-renders the container on tab clicks.
+
+### exhibition.js
+Purpose: Manages the individual exhibition experience, presenting placed artworks grouped by gallery rooms with live occupancy meters and curatorial placement controls.
+- getExhibitionImage(ex): Maps an exhibition to its local SVG visual plate. Called from: renderExhibitionHero.
+- getArtworkImage(art): Maps an artwork to its local SVG illustration file. Called from: buildArtworkPlacard.
+- getEligibleArtworks(exId): Filters artworks that are not sold, not already in this exhibition, and not scheduled in an overlapping exhibition. Called from: populatePlacementDropdowns.
+- getEligibleSpaces(exId): Filters display spaces not used by an overlapping exhibition and having remaining capacity. Called from: populatePlacementDropdowns.
+- updatePlacementButton(hasArtworks, hasSpaces): Enables or disables the placement button with clear explanatory feedback. Called from: populatePlacementDropdowns.
+- populatePlacementDropdowns(exId): Populates artwork and space dropdowns with eligible records and remaining room counts. Called from: init and after placement changes.
+- renderExhibitionHero(ex): Renders the exhibition display title, dates, theme, description, hero visual plate, and catalogue navigation links. Called from: initExhibitionPage.
+- buildArtworkPlacard(placement): Builds a museum wall placard card for an artwork with medium, year, valuation, status, and remove button. Called from: renderRoomsAndPlacements.
+- renderRoomsAndPlacements(exId): Groups placements by display space and renders room headers, visual occupancy bars, and artwork placard grids. Called from: init and after placement changes.
+- handlePlacementSubmit(event): Validates placement against business rules BR5 through BR9, saves, and updates the view. Called from: form submit listener.
+- handleRoomsClick(event): Handles the placement remove button to unassign a piece without deleting the artwork. Called from: room container click listener.
+- initExhibitionPage(): Reads ?id= from query params, finds the exhibition, and coordinates rendering or shows not-found state. Called from: end of file on startup.
+Viva questions this file may raise:
+- What happens when a user removes a placement from an exhibition? It deletes only the placement record linking the artwork to the room; the original artwork record remains completely intact in the gallery collection.
+- How does the placement interface prevent double-booking rooms? getEligibleSpaces checks checkSpaceOverlap to exclude any room currently reserved by another exhibition whose start and end dates intersect with this exhibition.
+
+## Phase 13: Artworks & Collection: A Real Gallery Experience
+Files: artworks.html, js/artworks.js, css/style.css
+
+### artworks.js
+Purpose: Powers the curated collection experience with an image-led artwork grid, instant multi-filtering, curatorial artwork dossier drawer, and collapsible accession desk.
+- getArtworkImage(art): Maps an artwork id to its local SVG illustration plate. Called from: buildArtworkCard, openArtworkDetail.
+- populateArtistDropdowns(): Populates the artist selector in both the accession desk and collection filter bar. Called from: initArtworksPage.
+- updateBuyerFieldVisibility(): Toggles the buyer input visibility depending on whether the status is Sold. Called from: status change listener, setFormForEdit, resetArtworkForm.
+- validateArtwork(artistId, title, year, medium, price, status, buyer, editId): Enforces required fields, positive price, valid historical year range, buyer when sold, and BR13 active exhibition restrictions. Called from: handleFormSubmit.
+- toggleAdminDesk(show): Toggles visibility of the collapsible curatorial accession desk. Called from: toggle button and form submit/cancel.
+- resetArtworkForm(): Clears inputs, hides buyer field, and resets the form to creation mode. Called from: cancel button and after saving.
+- setFormForEdit(art): Populates form fields with existing artwork data and opens the accession desk for editing. Called from: handleActionClick.
+- getFilteredArtworks(): Filters galleryData.artworks by search term, artist, and availability status. Called from: renderCollection.
+- buildArtworkCard(art, artistName, isFeatured): Builds the HTML for an image-led artwork card in the gallery grid with visual plate, medium, dimensions, price in INR, and status badge. Called from: renderCollection.
+- renderCollection(): Renders filtered artworks into both the image-led gallery grid and the staff inventory table, updating live collection counts. Called from: initArtworksPage, filters, form submission, and deletion.
+- openArtworkDetail(artId): Opens the slide-over dossier showing full artwork metadata, valuation, and past/current exhibition room placements with direct links. Called from: handleActionClick (Explore / View).
+- handleFormSubmit(event): Validates inputs, saves or updates the artwork in localStorage, and redraws the collection. Called from: artworkForm submit listener.
+- setViewMode(mode): Toggles between the image-led Gallery Grid view and the compact staff Tabular Inventory view. Called from: handleActionClick (view-gallery, view-inventory).
+- handleActionClick(event): Delegated click handler managing Explore, Edit, Delete (with BR10 safeguards), filter clearing, and drawer closing. Called from: document click listener.
+- initArtworksPage(): Initializes navigation, loads storage data, populates dropdowns, renders collection, and binds event listeners. Called from: end of file on startup.
+Viva questions this file may raise:
+- Why does the collection provide both a Gallery Grid and an Inventory Table? The Gallery Grid provides the public visitor-facing experience with visual artwork plates and tactile framing, while the Inventory Table provides an efficient tabular view for curatorial staff managing archive records. Both views share the same real-time search and filter state.
+- How does the artwork detail drawer show where an artwork is exhibited? It queries getPlacementsForArtwork(galleryData, art.id), then resolves the exhibition and room space names via findExhibitionById and findSpaceById, displaying active status badges and links to each exhibition.
+- How is business rule BR10 enforced when deleting an artwork? canDeleteArtwork checks if the artwork has any placements in data.placements; if so, deletion is blocked with "Remove it from its exhibitions first."
+
+## Phase 14: Artists & Profiles: The People Behind the Collection
+Files: artists.html, js/artists.js, artist.html, js/artist.js, css/style.css
+
+### artists.js
+Purpose: Powers the living artists roster directory with live search filtering, architectural initials seal plates, and a collapsible curatorial registration desk.
+- getArtistInitials(name): Computes up to two uppercase letters from the artist's full name for the archival seal. Called from: buildArtistCard.
+- validateArtist(name, born, bio, ignoreId): Validates required name (BR15), unique artist name (BR1), 4-digit birth year range, and 400-character bio limit. Called from: handleFormSubmit.
+- toggleAdminDesk(show): Toggles visibility of the collapsible curatorial registration desk. Called from: toggleAdminBtn and form events.
+- resetArtistForm(): Resets input fields and restores the form to creation mode. Called from: cancelBtn and after saving.
+- setFormForEdit(artist): Pre-fills inputs with the artist's data and opens the registration desk in edit mode. Called from: handleActionClick (edit).
+- getFilteredArtists(filterText): Filters in-memory artists matching the search query case-insensitively. Called from: renderArtists.
+- buildArtistCard(artist, artworkCount, isFeatured): Builds the HTML for an artist editorial tile with archival seal, discipline tag, nationality, birth year, catalogued works counter, bio snippet, and dossier links. Called from: renderArtists.
+- renderArtists(filterText): Renders the filtered artists into both the editorial roster grid and the staff tabular registry. Called from: initArtistsPage, search input, and CRUD handlers.
+- saveArtistRecord(id, name, born, nationality, style, bio): Creates or updates an artist in localStorage. Called from: handleFormSubmit.
+- handleFormSubmit(event): Validates inputs, saves the artist record, and redraws the directory. Called from: artistForm submit listener.
+- setViewMode(mode): Toggles between the Editorial Roster Grid and the Staff Tabular Registry. Called from: handleActionClick (view-grid, view-table).
+- handleActionClick(event): Delegated click handler managing Edit, Delete (with BR2 validation), view toggling, and search reset. Called from: document click listener.
+- initArtistsPage(): Initializes navigation, loads storage data, renders artists, and attaches form and search listeners. Called from: end of file on startup.
+Viva questions this file may raise:
+- How does the Artists Directory avoid fabricated portraits? Instead of arbitrary stock photos or AI-generated faces, each artist is rendered with an archival monogram seal derived from their actual initials and curated typography.
+- How does the application enforce business rule BR2 during artist deletion? canDeleteArtist checks if getArtworksForArtist(data, artistId).length > 0; if artworks belong to the artist, deletion is safely blocked with "Delete or reassign this artist's artworks first."
+
+### artist.js
+Purpose: Generates the individual artist monograph and portfolio page, presenting their identity, biography, catalogued oeuvre, and exhibition history.
+- getArtistInitials(name): Computes initials for the prominent curatorial monograph hero plate. Called from: renderProfile.
+- getArtworkImage(art): Resolves the local SVG visual plate for an artwork record. Called from: buildArtistWorksGrid.
+- getExhibitionsForArtist(artistId): Gathers all unique exhibitions where the artist's works are placed, eliminating duplicate entries when multiple works share a show. Called from: renderProfile.
+- buildArtistWorksGrid(artworks): Generates the curated artworks showcase grid with local plates, medium, year, valuation, and status pills. Called from: renderProfile.
+- buildExhibitionsTimeline(exhibitions): Generates a chronological exhibition record list with exhibition links, themes, dates, and active status badges. Called from: renderProfile.
+- renderProfile(artist): Coordinates the complete four-part narrative flow (Identity Hero -> Curatorial Practice Biography -> Catalogued Oeuvre -> Exhibition Record). Called from: initArtistProfile.
+- renderNotFound(): Displays a graceful fallback when an invalid or missing artist id is supplied in the URL query string. Called from: initArtistProfile.
+- initArtistProfile(): Reads ?id= from URL query parameters, loads storage data, and renders the artist profile. Called from: end of file on startup.
+Viva questions this file may raise:
+- How does the artist monograph prevent duplicate exhibitions in the history section? getExhibitionsForArtist checks an array of unique exhibition IDs (exhibitionIds.indexOf(exId) === -1) across all placements of all artworks by the artist, ensuring each exhibition appears exactly once in chronological order.
+- What happens if an invalid ?id= query parameter is provided? initArtistProfile detects that findArtistById returns undefined and calls renderNotFound(), displaying a dignified archival empty state with a working link back to the Artists Directory.
+
+## Phase 15: Gallery Spaces: The Architecture of an Exhibition
+Files: spaces.html, js/spaces.js, css/style.css
+
+### spaces.js
+Purpose: Powers the physical exhibition architecture experience with spatial perspective plates, live aggregate capacity metrics, exhibition-specific occupancy gauges, and curatorial room allocation controls.
+- getSpaceImage(space): Maps a display space name to its local architectural perspective SVG illustration. Called from: buildSpaceCard.
+- validateSpace(name, capacity, ignoreId): Validates non-empty name (BR15), unique space name (BR3), and integer capacity between 1 and 100 (BR15). Called from: handleFormSubmit.
+- toggleAdminDesk(show): Toggles visibility of the collapsible curatorial space allocation desk. Called from: toggleAdminBtn and form handlers.
+- resetSpaceForm(): Clears inputs and returns form heading and buttons to creation mode. Called from: cancelBtn and after saving.
+- setFormForEdit(space): Pre-populates the form with existing space data and opens the allocation desk in edit mode. Called from: handleActionClick (edit).
+- getSpaceExhibitionData(spaceId): Analyzes placements for a space, counts artworks per exhibition, distinguishes the current active show ('On now') from upcoming or past exhibitions, and sorts exhibitions newest first. Called from: buildSpaceCard, renderSpaces.
+- buildSpaceCard(space, index, isProminent): Generates HTML for an architectural space presentation card featuring illustrative room perspective, capacity blueprint, live exhibition occupancy gauge, and linked exhibition roster. Called from: renderSpaces.
+- renderSpaces(): Computes gallery-wide aggregate metrics (total wings, combined artwork slots, active wings in use) and renders cards into the spatial directory grid and staff tabular registry. Called from: initSpacesPage and CRUD operations.
+- saveSpaceRecord(id, name, capacity, note): Saves or updates a space record in localStorage. Called from: handleFormSubmit.
+- handleFormSubmit(event): Validates inputs, saves space data, resets form, and updates the view. Called from: spaceForm submit listener.
+- setViewMode(mode): Toggles between the Spatial Directory Grid and the Staff Tabular Registry. Called from: handleActionClick (view-grid, view-table).
+- handleActionClick(event): Delegated click handler managing Edit, Delete (with BR11 validation), view toggles, and admin desk triggers. Called from: document click listener.
+- initSpacesPage(): Initializes navigation, loads storage data, renders spaces, and binds event listeners. Called from: end of file on startup.
+Viva questions this file may raise:
+- Why is room occupancy calculated strictly per active exhibition rather than summed across all placements? Placements occur across different exhibition periods. Summing historical placements would falsely mark a room as permanently occupied even when it is currently free or in transition between shows.
+- How does the space management interface enforce business rule BR11? canDeleteSpace checks if getPlacementsForSpace(data, spaceId).length > 0; if any placements link to the space, deletion is blocked with "This space is in use."
+
+## Phase 16: The Curatorial Management Studio
+Files: dashboard.html, js/dashboard.js, css/style.css
+
+### dashboard.js
+Purpose: Powers the Curatorial Management Studio workspace with high-density operational metrics, quick management workflows, active exhibition occupancy cards, and archive maintenance tools.
+- isStoreEmpty(data): Checks whether all core gallery collections in localStorage contain zero records. Called from: renderDashboard, handleLoadSampleClick.
+- renderCounts(data): Draws the primary archive inventory cards (artists, artworks, spaces, exhibitions). Called from: renderDashboard.
+- renderOperationalStrip(data): Computes real-time artwork availability counts (Available, Reserved, Sold) and active physical space utilization (wings in live exhibition). Called from: renderDashboard.
+- buildSpaceUsageHtml(data, exId, spaceId): Builds an exhibition room occupancy gauge bar showing filled slots against capacity. Called from: renderOnNowExhibitions.
+- renderOnNowExhibitions(data): Displays running exhibitions with dates, placement counts, participating rooms, space capacity utilization, and direct management shortcuts. Called from: renderDashboard.
+- renderUpcomingExhibitions(data): Renders a chronological schedule of upcoming exhibitions with planned placement counts and direct management links. Called from: renderDashboard.
+- renderDashboard(): Coordinates rendering between the empty onboarding state and the active curatorial workspace. Called from: initDashboard, sample load, and erase actions.
+- formatOffsetDate(days): Computes calendar date strings offset from today's date for seed demonstrations. Called from: getSampleDataset.
+- getSampleDataset(): Assembles complete demonstration records (artists, spaces, artworks, exhibitions, placements) for examiners. Called from: loadSampleData.
+- loadSampleData(): Serializes demonstration records into localStorage. Called from: handleLoadSampleClick.
+- handleLoadSampleClick(): Validates the store is empty, requests confirmation, and loads sample data. Called from: loadSampleBtn and emptyLoadSampleBtn listeners.
+- handleEraseAllClick(): Prompts for confirmation and resets all gallery data in localStorage. Called from: eraseAllBtn click listener.
+- initDashboard(): Connects workspace navigation, loads storage data, and attaches maintenance listeners. Called from: end of file on startup.
+Viva questions this file may raise:
+- Why does Gallery Ledger have both a public homepage and a Curatorial Studio dashboard? The public homepage prioritises visual storytelling, editorial showcases, and visitor discovery, while the Curatorial Studio prioritises information density, operational status, data relationships, and immediate administrative shortcuts for staff.
+- How do the quick management action buttons open the add/edit forms automatically on target pages? The quick action buttons pass ?action=new in the query string; upon loading, each management page (artists.html, artworks.html, spaces.html, exhibitions.html) detects this parameter and automatically invokes toggleAdminDesk(true).
+
+## Phase 17: Curatorial Content Production & Complete Gallery Population (Phase 6.5)
+Files: js/demo-data.js, js/storage.js, js/ui.js, img/*.svg, docs/PRD.md
+
+### demo-data.js
+Purpose: Constructs and serves the deterministic curated demonstration dataset connecting the three project contributors, three architectural spaces, three scheduled exhibitions, twelve conceptual artworks, and twelve non-overlapping placements.
+- formatOffsetDate(days): Computes calendar date strings offset from today's date for dynamic relative exhibition scheduling. Called from: getDemoExhibitions.
+- getDemoArtists(): Returns the three project contributor artist records (Sukhmanpreet Kaur, Sonam Verma, Salik Riyaz). Called from: getCuratedDemoData.
+- getDemoSpaces(): Returns the three architectural gallery spaces (North Gallery, Project Room, Screening Alcove). Called from: getCuratedDemoData.
+- getDemoExhibitions(): Returns the three scheduled exhibitions demonstrating active ('The Act of Looking'), upcoming ('Rooms for Light'), and closed ('Notes in Matter') states. Called from: getCuratedDemoData.
+- getDemoArtworks(): Returns the twelve conceptual demonstration artworks representing all three contributors with valid prices, mediums, dimensions, and statuses. Called from: getCuratedDemoData.
+- getDemoPlacements(): Returns the twelve non-overlapping artwork assignments to gallery spaces strictly complying with capacity, sold-artwork, and date-overlap rules. Called from: getCuratedDemoData.
+- getCuratedDemoData(): Assembles and returns the full unified curated demonstration repository with nextId set to 34. Called from: loadData in storage.js and loadSampleData in dashboard.js.
+
+### ui.js (Image Resolver Helpers)
+Purpose: Centralizes asset mapping so that all pages resolve artwork, exhibition, and space SVGs consistently without duplicated code.
+- getArtworkImage(art): Resolves local SVG illustration paths for artwork records by ID or title slug with graceful fallbacks. Called from: home.js, artworks.js, artist.js, exhibition.js.
+- getExhibitionImage(ex): Resolves local curated SVG visual plates for exhibitions by ID or title slug. Called from: home.js, exhibitions.js, exhibition.js.
+- getSpaceImage(space): Resolves architectural perspective SVGs for gallery spaces by ID or name slug. Called from: home.js, spaces.js.
+
+Viva questions this phase may raise:
+- Why does Gallery Ledger automatically seed sample data on first visit instead of forcing the user to find a button? On static hosting environments like GitHub Pages and direct file:// execution, localStorage is initially empty for every new evaluator. Automatic first-run seeding ensures examiners immediately experience the living gallery website with full collections, exhibitions, and architectural spaces.
+- How does the system ensure intentional data erasure is not undone on page refresh? When data is erased via the Curatorial Studio, galleryData is saved as an empty dataset in localStorage. Because the key exists, loadData() returns the empty object rather than re-triggering the initial seed logic.
+- How does the demonstration collection distinguish real contributor biographies from fictional artworks? Contributor profiles on artist.html carry a prominent archival notice clarifying that while biographical background is grounded in academic research and interdisciplinary work, catalogued artworks, simulated valuations, and exhibition placements are conceptual coursework studies created for class demonstration.
+
+
+

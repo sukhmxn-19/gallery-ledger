@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="fwSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38393b"/>
+      <stop offset="100%" stop-color="#18191a"/>
+    </linearGradient>
+  </defs>
+  <!-- Archival Warm White Matting Border -->
+  <rect width="400" height="300" fill="#ebe4d8"/>
+  <!-- Field Research Silver Gelatin Contact Frame -->
+  <rect x="25" y="25" width="350" height="235" fill="url(#fwSky)" stroke="#18191a" stroke-width="2"/>
+  
+  <!-- Horizon Ridge in Remote Field Terrain -->
+  <polygon points="25,170 120,165 210,180 300,168 375,175 375,260 25,260" fill="#141517"/>
+  
+  <!-- Standing Megaliths / Natural Monolith Witnesses on Ridge -->
+  <polygon points="90,168 96,120 108,122 105,168" fill="#0d0e0f"/>
+  <polygon points="140,165 145,105 158,107 154,166" fill="#0d0e0f"/>
+  <polygon points="175,172 178,135 188,136 186,173" fill="#0d0e0f"/>
+  <polygon points="245,170 250,90 266,92 260,172" fill="#0d0e0f"/>
+  <polygon points="310,170 314,125 324,127 320,171" fill="#0d0e0f"/>
+
+  <!-- Documentary Framing Crosshairs & Viewfinder -->
+  <line x1="200" y1="50" x2="200" y2="70" stroke="#f4efe6" stroke-width="1.25"/>
+  <line x1="190" y1="60" x2="210" y2="60" stroke="#f4efe6" stroke-width="1.25"/>
+  <line x1="45" y1="45" x2="70" y2="45" stroke="#f4efe6" stroke-width="1.25"/>
+  <line x1="45" y1="45" x2="45" y2="70" stroke="#f4efe6" stroke-width="1.25"/>
+  
+  <!-- Field Timestamp Stamp -->
+  <rect x="40" y="225" width="135" height="20" fill="#000000" fill-opacity="0.6"/>
+  <text x="45" y="238" font-family="'Consolas', monospace" font-size="8" fill="#ded7ca">2024.06.18 // 05:42 IST</text>
+
+  <!-- Archival plate notation -->
+  <text x="28" y="278" font-family="'Consolas', 'Menlo', monospace" font-size="8.5" letter-spacing="1" fill="#787367">A FIELD OF WITNESSES · SILVER GELATIN CONTACT PRINT · SALIK RIYAZ</text>
+</svg>
+

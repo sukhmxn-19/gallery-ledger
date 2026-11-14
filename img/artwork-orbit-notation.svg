@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="onCyano" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#142842"/>
+      <stop offset="100%" stop-color="#0b1727"/>
+    </linearGradient>
+  </defs>
+  <!-- Deep Cyanotype Drafting Ground -->
+  <rect width="400" height="300" fill="#0b1727"/>
+  <rect x="18" y="18" width="364" height="264" fill="url(#onCyano)" stroke="#224269" stroke-width="1"/>
+  
+  <!-- Primary Keplerian Orbital Ellipse -->
+  <ellipse cx="200" cy="140" rx="140" ry="70" fill="none" stroke="#66a8db" stroke-width="1.5"/>
+  <!-- Secondary Inclined Orbital Arc -->
+  <ellipse cx="200" cy="140" rx="160" ry="40" fill="none" stroke="#89c2ed" stroke-width="1" stroke-dasharray="4,3" transform="rotate(-18 200 140)"/>
+  
+  <!-- Gravitational Focus Node & Trajectory Points -->
+  <circle cx="140" cy="140" r="7" fill="#fdfbf7"/>
+  <circle cx="140" cy="140" r="14" fill="none" stroke="#66a8db" stroke-width="1" stroke-dasharray="2,2"/>
+  <circle cx="340" cy="140" r="4" fill="#66a8db"/>
+  <circle cx="200" cy="70" r="3" fill="#ffffff"/>
+  <circle cx="200" cy="210" r="3" fill="#ffffff"/>
+  
+  <!-- Orbital Telemetry Coordinates & Major/Minor Axes -->
+  <line x1="60" y1="140" x2="340" y2="140" stroke="#315887" stroke-width="0.75"/>
+  <line x1="200" y1="40" x2="200" y2="240" stroke="#315887" stroke-width="0.75"/>
+  
+  <!-- Telemetry Radian Ticks -->
+  <line x1="280" y1="110" x2="290" y2="105" stroke="#89c2ed" stroke-width="1"/>
+  <line x1="310" y1="125" x2="320" y2="120" stroke="#89c2ed" stroke-width="1"/>
+  <text x="50" y="50" font-family="'Consolas', monospace" font-size="8" fill="#66a8db">PERIHELION e=0.482 · T=14.2d</text>
+  <text x="350" y="240" font-family="'Consolas', monospace" font-size="8" fill="#66a8db" text-anchor="end">AZIMUTH 174.6°</text>
+
+  <!-- Archival plate notation -->
+  <text x="28" y="272" font-family="'Consolas', 'Menlo', monospace" font-size="8.5" letter-spacing="1" fill="#7ba3c7">ORBIT NOTATION · CYANOTYPE ON DRAFTING VELLUM · SALIK RIYAZ</text>
+</svg>
+

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <rect width="240" height="240" fill="#f2eee5"/>
+  <rect x="12" y="12" width="216" height="216" fill="#f8f6f0" stroke="#d4ccbd" stroke-width="1"/>
+  <!-- Circular Matting -->
+  <circle cx="120" cy="115" r="75" fill="#eae4d8" stroke="#baad98" stroke-width="1.5"/>
+  <!-- Silhouette Head & Shoulders -->
+  <circle cx="120" cy="95" r="30" fill="#3a342c"/>
+  <path d="M 75,170 C 75,135 165,135 165,170 Z" fill="#3a342c"/>
+  <!-- Archival Monogram Seal -->
+  <circle cx="170" cy="165" r="18" fill="#9e2a1b" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="170" y="170" font-family="'Playfair Display', Georgia, serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GL</text>
+  <text x="120" y="215" font-family="'Consolas', monospace" font-size="9" letter-spacing="1.5" fill="#787367" text-anchor="middle">CURATORIAL DOSSIER</text>
+</svg>

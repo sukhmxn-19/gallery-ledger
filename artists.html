@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Artists - Gallery Ledger</title>
+  <title>The Artists — Gallery Ledger</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -12,23 +12,37 @@
   </header>
 
   <main>
-    <h1>Artists</h1>
+    <div class="artists-intro">
+      <div class="artists-header-row">
+        <div>
+          <div class="section-tag">Living Artists Roster</div>
+          <h1>The Artists</h1>
+          <p class="page-subtitle">A curated registry of contemporary painters, sculptors, and printmakers represented by the gallery.</p>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <span id="artist-count" class="collection-count-pill">0 Artists</span>
+          <button type="button" id="toggle-admin-btn" class="admin-toggle-btn">✦ Register Artist</button>
+        </div>
+      </div>
+    </div>
+
     <div id="message" class="message"></div>
 
-    <div class="split">
-      <div>
-        <h2 id="form-heading">Add artist</h2>
-        <form id="artist-form">
-          <input type="hidden" id="artist-id" value="">
+    <!-- Collapsible Curatorial Registration Desk -->
+    <div id="admin-panel" class="admin-panel" hidden>
+      <h2 id="form-heading">Add artist</h2>
+      <form id="artist-form">
+        <input type="hidden" id="artist-id" value="">
 
+        <div class="admin-grid">
           <div class="field">
-            <label for="artist-name">Name</label>
-            <input type="text" id="artist-name" required>
+            <label for="artist-name">Artist Name</label>
+            <input type="text" id="artist-name" placeholder="Full name of the artist" required>
           </div>
 
           <div class="field">
             <label for="artist-born">Year Born</label>
-            <input type="number" id="artist-born" placeholder="e.g. 1978">
+            <input type="number" id="artist-born" placeholder="e.g. 1984">
           </div>
 
           <div class="field">
@@ -37,46 +51,110 @@
           </div>
 
           <div class="field">
-            <label for="artist-style">Style</label>
-            <input type="text" id="artist-style" placeholder="e.g. Printmaking, Sculpture">
+            <label for="artist-style">Discipline / Style</label>
+            <input type="text" id="artist-style" placeholder="e.g. Contemporary abstraction">
           </div>
-
-          <div class="field">
-            <label for="artist-bio">Biography</label>
-            <textarea id="artist-bio" maxlength="400" placeholder="Max 400 characters"></textarea>
-          </div>
-
-          <div>
-            <button type="submit" id="submit-btn">Add artist</button>
-            <button type="button" id="cancel-btn" class="secondary" hidden>Cancel</button>
-          </div>
-        </form>
-      </div>
-
-      <div>
-        <div class="field">
-          <label for="search-input">Search by name</label>
-          <input type="text" id="search-input" placeholder="Type to filter artists...">
         </div>
 
+        <div class="field">
+          <label for="artist-bio">Biography (max 400 characters)</label>
+          <textarea id="artist-bio" maxlength="400" placeholder="Curatorial background, practice, and aesthetic focus..."></textarea>
+        </div>
+
+        <div class="admin-actions">
+          <button type="submit" id="submit-btn">Add artist</button>
+          <button type="button" id="cancel-btn" class="secondary">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Search & Discovery Toolbar -->
+    <div class="collection-toolbar">
+      <div class="collection-filter-group">
+        <input type="text" id="search-input" class="collection-search" placeholder="Search artists by name...">
+        <button type="button" id="clear-search-btn" class="secondary" style="font-size: 11px; padding: 6px 10px;" data-action="clear-search">Clear</button>
+      </div>
+
+      <div class="view-toggle">
+        <button type="button" id="view-grid-btn" class="view-btn active" title="Curated Artist Tiles" data-action="view-grid">⊞ Roster</button>
+        <button type="button" id="view-table-btn" class="view-btn" title="Staff Registry Table" data-action="view-table">≡ Registry</button>
+      </div>
+    </div>
+
+    <!-- Editorial Artist Directory Grid (Default View) -->
+    <div id="artists-grid" class="artists-directory-grid"></div>
+
+    <!-- Staff Tabular Registry View (Toggled View) -->
+    <div id="table-view" class="inventory-view-container" hidden>
+      <div class="inventory-table-header">
+        <h3>Archival Artists Registry</h3>
+        <span class="collection-count-pill" id="registry-count"></span>
+      </div>
+      <div style="overflow-x: auto;">
         <table>
           <thead>
             <tr>
-              <th>Name</th>
+              <th>Artist Name</th>
               <th>Nationality</th>
-              <th>Style</th>
-              <th class="num">Artworks</th>
+              <th>Year Born</th>
+              <th>Style / Discipline</th>
+              <th class="num">Works</th>
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody id="artists-table-body">
-          </tbody>
+          <tbody id="artists-table-body"></tbody>
         </table>
-        <p id="empty-state" hidden>No artists found.</p>
       </div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="empty-curatorial" hidden>
+      <h3>No artists match</h3>
+      <p>No registered artists match your current search query.</p>
+      <button type="button" id="empty-reset-btn" class="secondary" data-action="clear-search">Reset Search</button>
     </div>
   </main>
 
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <span class="brand">GALLERY LEDGER</span>
+        <span class="footer-tagline">Exhibition Platform</span>
+        <p class="footer-about">An architectural art gallery exhibition management system connecting living artists, original works, physical spaces, and curated exhibition programmes.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">The Gallery</a></li>
+          <li><a href="exhibitions.html">Exhibitions</a></li>
+          <li><a href="artists.html">Artists</a></li>
+          <li><a href="artworks.html">Collection</a></li>
+          <li><a href="spaces.html">Gallery Spaces</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Workspace</h4>
+        <ul>
+          <li><a href="dashboard.html">Curatorial Office</a></li>
+          <li><a href="exhibitions.html">Scheduling Desk</a></li>
+          <li><a href="artworks.html">Accession Desk</a></li>
+          <li><a href="spaces.html">Space Allocation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Colophon</h4>
+        <p>CSE326 Web Development Project.</p>
+        <p>Built with semantic HTML5, modular CSS3, and browser localStorage persistence.</p>
+        <p class="footer-built">100% Client-side &bull; Zero External Network Calls</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Gallery Ledger. Curatorial Archive System.</span>
+      <span>Living Artists Representation</span>
+    </div>
+  </footer>
+
+  <script src="js/demo-data.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/artists.js"></script>

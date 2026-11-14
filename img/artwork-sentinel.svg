@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#ebe4d8"/>
+  <rect x="15" y="15" width="370" height="270" fill="#ded4c3" stroke="#c4b69f" stroke-width="1"/>
+  <!-- Limestone Stele & Wrought Iron Bands -->
+  <polygon points="175,250 225,250 215,50 185,50" fill="#fffdfa" stroke="#787367" stroke-width="2"/>
+  <!-- Iron Clamps -->
+  <rect x="170" y="100" width="60" height="12" fill="#181715"/>
+  <rect x="168" y="180" width="64" height="14" fill="#181715"/>
+  <circle cx="200" cy="187" r="4" fill="#b37418"/>
+  <text x="25" y="275" font-family="'Consolas', monospace" font-size="9" letter-spacing="1" fill="#787367">HEWN LIMESTONE &amp; CAST IRON · TOMAS REYES</text>
+</svg>

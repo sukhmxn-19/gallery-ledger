@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Gallery Ledger</title>
+  <title>Gallery Ledger - Contemporary Art Exhibition Platform</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -11,39 +11,186 @@
     <nav id="nav"></nav>
   </header>
 
-  <main>
-    <h1>Dashboard</h1>
-    <div id="message" class="message"></div>
+  <main class="animate-in">
+    <!-- Editorial Hero Section -->
+    <section class="home-hero">
+      <div class="hero-content">
+        <div class="hero-badge"><span class="badge-dot"></span> SEASON 2026/2027 · CONTEMPORARY ARCHIVE</div>
+        <h1 class="hero-title">Where art finds its place.</h1>
+        <p class="hero-lede">
+          An architectural exhibition platform connecting living artists, physical gallery spaces, and curated collections. Explore current exhibitions or enter the curatorial office to coordinate spaces and placements.
+        </p>
+        <div class="hero-actions">
+          <a href="#featured-exhibitions" class="btn">Explore Exhibitions</a>
+          <a href="dashboard.html" class="btn btn-secondary">Manage Collection</a>
+        </div>
+        <div id="hero-ticker" class="hero-ticker"></div>
+      </div>
+      <div class="hero-visual-frame">
+        <img src="img/hero-gallery.svg" alt="North Hall gallery view with skylight and framed works" class="hero-img">
+        <div class="hero-visual-caption">
+          <span>NORTH HALL · WEST WING</span>
+          <span>PERMANENT COLLECTION REGISTRY</span>
+        </div>
+      </div>
+    </section>
 
-    <div id="empty-state" hidden>
-      <p>No gallery data found. Start by adding an artist.</p>
-      <p><a href="artists.html">Add the first artist &rarr;</a></p>
+    <!-- Curatorial Statement Ribbon -->
+    <div class="curatorial-ribbon">
+      <span>✦ PHYSICAL ARCHIVES</span>
+      <span>✦ REGISTERED EDITIONS</span>
+      <span>✦ MONUMENTAL INSTALLATIONS</span>
+      <span>✦ CURATORIAL INTEGRITY</span>
     </div>
 
-    <div id="dashboard-content" hidden>
-      <div id="counts-row" class="count-row"></div>
-
-      <h2>On now</h2>
-      <div id="on-now-container"></div>
-
-      <hr>
-
-      <h2>Upcoming</h2>
-      <div id="upcoming-container"></div>
+    <!-- Empty Registry Notice (shown only if store is unpopulated) -->
+    <div id="home-empty-notice" class="empty-curatorial" hidden>
+      <h3>Archive Registry Empty</h3>
+      <p>No gallery records are currently loaded in local storage. Open the workspace to populate demonstration exhibitions or register an artist.</p>
+      <div class="section-cta-row">
+        <a href="dashboard.html" class="btn">Open Curatorial Workspace</a>
+      </div>
     </div>
 
-    <hr>
+    <!-- 01 / Featured Exhibitions -->
+    <section class="home-section" id="featured-exhibitions">
+      <div class="section-header">
+        <div class="section-tag">01 / PROGRAMME</div>
+        <h2>Current &amp; Upcoming Exhibitions</h2>
+        <p class="section-desc">Curated seasonal installations scheduled across North Gallery, Project Room, and the Screening Alcove.</p>
+      </div>
+      <div id="home-exhibitions-container" class="home-exhibitions-grid"></div>
+      <div class="section-cta-row">
+        <a href="exhibitions.html" class="btn btn-secondary">View Exhibition Calendar &rarr;</a>
+      </div>
+    </section>
 
-    <div class="row-actions">
-      <p>
-        <button type="button" id="load-sample-btn" class="secondary">Load sample data</button>
-        <button type="button" id="erase-all-btn" class="delete">Erase all data</button>
-      </p>
-    </div>
+    <!-- 02 / Curated Artworks -->
+    <section class="home-section" id="featured-artworks">
+      <div class="section-header">
+        <div class="section-tag">02 / THE COLLECTION</div>
+        <h2>Selected Works on View</h2>
+        <p class="section-desc">Paper relief studies, architectural light studies, and astronomical field compositions currently in registry.</p>
+      </div>
+      <div id="home-artworks-container" class="home-artworks-grid"></div>
+      <div class="section-cta-row">
+        <a href="artworks.html" class="btn btn-secondary">Explore Complete Catalogued Artworks &rarr;</a>
+      </div>
+    </section>
+
+    <!-- 03 / Living Artists -->
+    <section class="home-section" id="featured-artists">
+      <div class="section-header">
+        <div class="section-tag">03 / ROSTER</div>
+        <h2>Living Artists</h2>
+        <p class="section-desc">Printmakers, sculptors, and painters contributing to the gallery permanent ledger.</p>
+      </div>
+      <div id="home-artists-container" class="home-artists-grid"></div>
+      <div class="section-cta-row">
+        <a href="artists.html" class="btn btn-secondary">View All Artists &amp; Biographies &rarr;</a>
+      </div>
+    </section>
+
+    <!-- 04 / Architectural Spaces -->
+    <section class="home-section" id="featured-spaces">
+      <div class="section-header">
+        <div class="section-tag">04 / ARCHITECTURE</div>
+        <h2>Gallery Spaces &amp; Capacities</h2>
+        <p class="section-desc">Carefully proportioned gallery wings engineered for specific light conditions and mediums.</p>
+      </div>
+      <div id="home-spaces-container" class="home-spaces-grid"></div>
+      <div class="section-cta-row">
+        <a href="spaces.html" class="btn btn-secondary">Manage Gallery Spaces &rarr;</a>
+      </div>
+    </section>
+
+    <!-- 05 / Methodology -->
+    <section class="home-section home-workflow-section">
+      <div class="section-header">
+        <div class="section-tag">05 / METHODOLOGY</div>
+        <h2>How Gallery Management Works</h2>
+        <p class="section-desc">A five-stage curatorial lifecycle connecting artist registration, artwork assignment, and publication.</p>
+      </div>
+      <div class="workflow-grid">
+        <div class="workflow-card">
+          <div class="workflow-step">STAGE 01</div>
+          <h3 class="workflow-title">Register Artists</h3>
+          <p class="workflow-text">Establish biographical records, artistic mediums, nationalities, and historical styles.</p>
+        </div>
+        <div class="workflow-card">
+          <div class="workflow-step">STAGE 02</div>
+          <h3 class="workflow-title">Catalogue Artworks</h3>
+          <p class="workflow-text">Record physical dimensions, medium, Indian Rupee valuation, and commercial availability.</p>
+        </div>
+        <div class="workflow-card">
+          <div class="workflow-step">STAGE 03</div>
+          <h3 class="workflow-title">Create Exhibitions</h3>
+          <p class="workflow-text">Schedule curated themes and calendar periods with strict overlap conflict detection.</p>
+        </div>
+        <div class="workflow-card">
+          <div class="workflow-step">STAGE 04</div>
+          <h3 class="workflow-title">Allocate Spaces</h3>
+          <p class="workflow-text">Assign pieces to rooms with automatic capacity limits and double-booking verification.</p>
+        </div>
+        <div class="workflow-card">
+          <div class="workflow-step">STAGE 05</div>
+          <h3 class="workflow-title">Publish Catalogue</h3>
+          <p class="workflow-text">Generate printable wall placards, running sequence numbers, and collector summaries.</p>
+        </div>
+      </div>
+      <div class="section-cta-row">
+        <a href="dashboard.html" class="btn">Enter Curatorial Workspace &rarr;</a>
+      </div>
+    </section>
   </main>
 
+  <!-- Multi-column Curatorial Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <span class="brand">GALLERY LEDGER</span>
+        <p class="footer-tagline">Contemporary Art Archive &amp; Exhibition Registry</p>
+        <p class="footer-about">
+          A curatorial platform designed for physical exhibition scheduling, room allocations, artwork assignment, and collection cataloguing. Runs entirely client-side without third-party dependencies.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>The Gallery</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="exhibitions.html">Exhibitions</a></li>
+          <li><a href="artworks.html">Collection</a></li>
+          <li><a href="artists.html">Artists</a></li>
+          <li><a href="spaces.html">Gallery Spaces</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Workspace</h4>
+        <ul>
+          <li><a href="dashboard.html">Curatorial Overview</a></li>
+          <li><a href="artists.html">Register Artist</a></li>
+          <li><a href="artworks.html">Catalogue Artwork</a></li>
+          <li><a href="spaces.html">Manage Spaces</a></li>
+          <li><a href="exhibitions.html">Schedule Exhibition</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Academic Attribution</h4>
+        <p><strong>Course:</strong> CSE326 (1st Semester, LPU)</p>
+        <p><strong>Project IDs:</strong> RK2P26EVA29 / RK2P26EVA30</p>
+        <p><strong>Team:</strong> Sukhmanpreet Kaur, Sonam Verma, Salik Riyaz</p>
+        <p class="footer-built">Vanilla HTML5 · CSS3 · Pure JavaScript · LocalStorage</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Gallery Ledger. Curatorial Archival System.</span>
+      <span>Completely Offline &amp; Examiner Ready</span>
+    </div>
+  </footer>
+
+  <script src="js/demo-data.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/ui.js"></script>
-  <script src="js/dashboard.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>
