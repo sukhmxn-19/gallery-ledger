@@ -6,13 +6,23 @@ Read this file fully before every task. Then read `docs/PRD.md` for what to buil
 
 A college project (CSE326, 1st semester, LPU): an **art gallery exhibition management platform** connecting artists, artworks, exhibition periods, gallery spaces, and artwork assignments.
 
-The platform is structured into two connected layers sharing one unified `localStorage` repository:
-- **A. The Gallery Experience:** The public-facing art gallery website (`index.html`) featuring an editorial hero section, seasonal exhibition showcases, curated artwork grids, artist spotlights, architectural gallery space cards, and an interactive methodology guide.
-- **B. The Management Workspace:** The staff curatorial office (`dashboard.html`, `artists.html`, `artworks.html`, `spaces.html`, `exhibitions.html`, `exhibition.html`, `catalogue.html`) providing administration tools for registering artists, managing artwork records, scheduling exhibitions, allocating spaces, validating placements, and generating printable exhibition catalogues.
+The platform is structured into two clearly separated experiences sharing one unified `localStorage` repository:
+- **A. Visitor Experience (Default, Public, Read-Only):** A warm, expressive, highly presentable contemporary art gallery website (`index.html`) featuring an editorial hero ("Art has a place here."), current and upcoming exhibition showcases, curated collection grids, living artist spotlights, architectural space cards, and an engaging curatorial story. Free from administrative buttons, management forms, or inventory controls.
+- **B. Organiser Workspace (Curatorial Studio):** A dedicated administrative workspace (`dashboard.html`, `artists.html`, `artworks.html`, `spaces.html`, `exhibitions.html`, `exhibition.html`, `catalogue.html`) providing curatorial tools for registering artists, managing artwork records, scheduling exhibitions, allocating spaces with capacity enforcement, validating placements, and generating printable exhibition catalogues.
 
 Two first-semester students built it and must **explain every line of it to an examiner**. The code must therefore look like a good student wrote it: plain, small, obvious, and human-crafted without AI template slop.
 
-## 2. The stack (hard limits)
+## 2. Honest Access-Control Design & Publishing Workflow
+
+Because this is strictly a static frontend project running locally or on GitHub Pages, genuine server-side authentication is not available.
+- **No Fake Security:** Never implement fake password prompts, hidden URL tricks, or claim client-side code provides security.
+- **Read-Only Public Default:** The public website displays exhibition outcomes without editing clutter.
+- **Separate Organiser Entry Point:** A clearly marked "Curatorial Studio" / "Organiser Workspace" link in the navigation provides access to operational tools.
+- **Local Browser Persistence:** All organiser edits are saved directly into the current browser's `localStorage` (`galleryData`).
+- **Static Publishing Workflow:**
+  Organiser edits locally in browser &rarr; validates collection &rarr; exports updated data &rarr; repository maintainer updates demonstration data (`js/demo-data.js`) &rarr; published to GitHub Pages &rarr; public visitors see the updated collection.
+
+## 3. The stack (hard limits)
 
 Allowed: HTML5, CSS3, plain JavaScript in the browser, `localStorage`, local SVG/image assets.
 
@@ -27,9 +37,7 @@ Forbidden, no exceptions, even if it seems helpful:
 
 The site must run by double-clicking `index.html` directly from the local file system.
 
-If a task seems to need something forbidden, **stop and ask**. Do not work around it.
-
-## 3. JavaScript style (examiner-friendly)
+## 4. JavaScript style (examiner-friendly)
 
 Use: `const`, `let`, functions (`function name() {}`), `if/else`, `for` loops, `forEach`, `filter`, `find`, `map`, `sort`, template literals, `document.getElementById`, `querySelector`, `addEventListener`, `localStorage`, `JSON.parse/stringify`, `URLSearchParams`, `Date`, `toLocaleString`.
 
@@ -41,26 +49,25 @@ Rules:
 3. Above every function, one comment in plain English saying **what it does and why**. No comments that restate the code.
 4. Every page file follows this order: grab elements, small helper functions, render functions, event handlers, then a start-up call at the bottom.
 5. No global variables except the page's few element references and the `data` object returned by `loadData()`. Shared helpers live in `storage.js` and `ui.js` as plain top-level functions.
-6. Never write user text into `innerHTML` directly. Use `textContent`, or pass it through `escapeHtml()` from `ui.js`. Keep a comment where this matters.
+6. Never write user text into `innerHTML` directly. Use `textContent`, or pass it through `escapeHtml()` from `ui.js`.
 7. Business rules (PRD section 6) live **only** in `storage.js`. Page files call them and display the returned message. A rule function returns `''` (empty string) when OK, or the error message text.
 8. Do not duplicate logic. If two pages need it, it goes in `storage.js` or `ui.js`.
 9. No dead code, no commented-out code, no TODOs left behind, no `console.log` left behind.
 
-## 4. Design rules (curatorial editorial aesthetic)
+## 5. Design rules (warm contemporary gallery aesthetic)
 
-The design must feel like a living contemporary art gallery and museum archive: elegant, tactile, deeply architectural, and expressive, while remaining 100% vanilla and examiner-friendly.
+The design feels like an inviting, tactile contemporary art gallery and museum archive: warm, human-centered, expressive, and architectural.
 
-- **Palette:** Archival vellum (`#f8f6f0`), surface white (`#ffffff`), linen matting (`#f2eee5`), carbon ink (`#181715`), muted graphite (`#787367`), border hairlines (`#d4ccbd`), with curated gallery accents: Florentine vermilion (`#9e2a1b`) for live shows and sold works, antique ochre (`#b37418`) for upcoming and reserved states, sage olive (`#386641`) for available works and healthy capacity, and archival slate (`#5c6773`) for closed exhibitions.
-- **Hero & Editorial Sections:** Large asymmetrical editorial heroes with strong typography, curated gallery imagery, meaningful headlines ("Where art finds its place"), and dual actions (Explore Exhibitions vs. Manage Collection).
-- **Gallery Imagery & Visual Assets:** Permitted and encouraged via bundled, local SVG files and illustrative artwork plates stored in `img/`. Zero external network calls.
-- **Card Grids & Presentation:** Visual exhibition feature cards with dates and space meters, curated artwork showcase grids with dimensions and medium tags, artist dossier spotlights, and architectural room cards.
-- **Depth & Framing:** Layered optical micro-shadows for tactile paper depth and card elevation. Double hairlines and matting borders evoke physical gallery framing.
-- **Motion & Microinteractions:** Intentional, restrained CSS transitions (0.15s–0.25s) for hover states, card elevation, focus feedback, and smooth occupancy meter growth. Subtle page-entry reveals allowed. Must strictly respect `@media (prefers-reduced-motion: reduce)`.
-- **Navigation Architecture:** Distinctive gallery branding with desktop and mobile responsive navigation covering Home, Exhibitions, Artists, Artworks, and Spaces, plus a clearly segregated curatorial button to enter the Management Workspace (`dashboard.html`).
-- **Typography:** High-contrast editorial serif (`Playfair Display`, `Didot`, `Georgia`, serif) for display titles and placards. Reading serif (`Charter`, `Palatino`, `Georgia`, serif) for body copy. Tabular monospace (`ui-monospace`, `Cascadia Code`, `Menlo`, `Consolas`, monospace) for dates, currency, catalog numbers, and metadata. No web fonts or external network font downloads.
-- **Forbidden AI Slop:** Generic blue-purple gradients, glowing orbs, blob illustrations, glassmorphism, vague marketing slogans, fake statistics, floating badges, and SaaS/finance dashboard templates.
+- **Warm Palette:** Archival cream (`#fcf9f2`), cotton surface white (`#ffffff`), linen matting (`#f6efe3`), warm inset well (`#ede5d5`), deep carbon ink (`#1e1d1a`), warm charcoal body (`#4a463e`), muted graphite (`#7c776e`), warm border hairlines (`#eae3d5` / `#d6cebe`), with curated accents: rich Florentine terracotta (`#c44b33`) for live shows and primary actions, antique ochre (`#b57418`) for upcoming and reserved states, sage olive (`#3d6842`) for available works, and archival slate (`#5d6773`) for closed exhibitions.
+- **Welcoming Editorial Hero:** Asymmetrical composition, warm serif typography ("Art has a place here."), concise human-centered introduction, primary action ("Explore Exhibitions") and secondary action ("Discover the Collection"). No dominant admin button.
+- **Gallery Imagery & Visual Plates:** Bundled local SVG illustrations stored in `img/`. Zero external network calls.
+- **Presentation & Framing:** Visual exhibition feature cards with dates and placement summaries, artwork showcase grids with dimensions and medium tags, personable artist spotlights, and architectural room cards highlighting natural light and physical atmosphere.
+- **Animation System:** Restrained CSS transitions and vanilla JavaScript reveals: deliberate entrance reveal sequence, scroll reveals using `IntersectionObserver`, artwork image zoom (`scale(1.025)`), subtle card lift, and mobile navigation. Must strictly respect `@media (prefers-reduced-motion: reduce)`.
+- **Navigation Architecture:** Clear gallery branding with responsive navigation (Home, Exhibitions, Artworks, Artists, Spaces), plus a clearly segregated entry point to the Curatorial Studio (`dashboard.html`).
+- **Typography:** High-contrast editorial serif (`Playfair Display`, `Didot`, `Georgia`, serif) for display titles and placards. Literary reading serif (`Charter`, `Palatino`, `Georgia`, serif) for body copy. Tabular monospace (`ui-monospace`, `Cascadia Code`, `Menlo`, `Consolas`, monospace) for dates, currency, and metadata. No external web fonts.
+- **Forbidden AI Slop:** Generic blue-purple gradients, glowing orbs, decorative blobs, glassmorphism, vague marketing buzzwords, fake statistics, floating badges, and SaaS dashboard templates.
 
-## 5. Data and architecture
+## 6. Data and architecture
 
 - All data is one object saved in `localStorage` under `galleryData`. Shape is defined in PRD section 5. Do not change field names.
 - `storage.js` owns: `loadData`, `saveData`, id generation, finders, add/update/delete helpers, overlap check, exhibition status, and every business rule.
@@ -69,47 +76,12 @@ The design must feel like a living contemporary art gallery and museum archive: 
 - Links between pages use query strings: `exhibition.html?id=3`. Read with `URLSearchParams`.
 - Each form is both add and edit. Use a hidden input holding the id (empty means add).
 
-## 6. Workflow rules
-
-1. **Work intentionally.** Focus on delivering the current milestone cleanly with robust verification.
-2. **Plan first.** Before writing code, verify requirements, plan the files to create or modify, and the functions to write.
-3. **Preserve data integrity.** Never alter the underlying `galleryData` schema or business rule logic.
-4. **Zero network calls.** All assets (SVGs, scripts, styles) must be completely local and load from `file://`.
-5. **Verify before saying done.** Test in browser, verify layout across desktop and mobile widths, check console is clean, and ensure data persists across refreshes.
-6. **Update `docs/EXPLAIN.md`** at the completion of each implementation milestone.
-
-
-## 7. `docs/EXPLAIN.md` format
-
-Append a section per phase. Keep it short and in simple English a student can say aloud.
-
-```
-## Phase N: name
-Files: list
-### filename.js
-Purpose: one sentence.
-- functionName(): what it does, in one line. Called from: where.
-Viva questions this file may raise:
-- question, then a one-line answer
-```
-
-Also keep a "How the pages connect" section at the top that traces one full flow: add artist, add artwork, create exhibition, place artwork, open catalogue, and which function runs at each step.
-
-## 8. Definition of done (every phase)
+## 7. Definition of done (every phase)
 
 - Works from `file://` in Chrome with a clean console.
-- Follows sections 2, 3 and 4 of this file.
+- Follows sections 2, 3, 4 and 5 of this file.
 - No function over 30 lines, no file over 200 lines.
 - Business rules produce the PRD messages word for word.
 - Data persists across refresh.
 - `docs/EXPLAIN.md` updated.
-- Short final report: what was built, what was checked, anything left open.
-
-## 9. Self-check before replying
-
-Ask yourself and fix before answering:
-- Did I add any library, font, CDN link, or build file?
-- Did I use any syntax from the "avoid" list?
-- Is there any external network dependency, marketing buzzword, or unexplainable code?
-- Could a first-semester student explain every line I wrote?
-- Does every file stay under 200 lines and every function under 30 lines?
+- Short final report: what was built, what was checked, desktop & mobile verified.

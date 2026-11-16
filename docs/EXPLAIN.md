@@ -3,9 +3,9 @@
 This trace follows one complete workflow across the gallery platform from the public landing experience to curatorial management and printable catalogue output, naming the primary function executing at each step:
 
 0. **Public Gallery Homepage**:
-   - Visitor opens `index.html`. `initHomePage()` renders the masthead navigation (`renderNav('Home')`), reads `loadData()`, and renders the collection overview via `renderHomePage()`.
-   - The visitor explores the editorial hero section ("Where art finds its place"), live collection metrics ticker (`renderHeroTicker()`), current and upcoming exhibitions (`renderExhibitions()`), curated artworks showcase (`renderArtworks()`), living artists roster (`renderArtists()`), architectural gallery spaces with occupancy meters (`renderSpaces()`), and the five-stage methodology sequence.
-   - Visitor can either click an exhibition to view its details or click "Workspace" / "Manage Collection" to enter `dashboard.html`.
+   - Visitor opens `index.html`. `initHomePage()` renders the warm masthead navigation (`renderNav('Home')`), reads `loadData()`, and renders the collection overview via `renderHomePage()`.
+   - The visitor explores the welcoming editorial hero ("Art has a place here."), live collection highlights ticker (`renderHeroTicker()`), current and upcoming exhibitions (`renderExhibitions()`), curated artworks showcase (`renderArtworks()`), living artists roster (`renderArtists()`), architectural gallery spaces (`renderSpaces()`), the curatorial story ("A Space for Art to Breathe"), and gentle entrance/scroll reveals (`setupScrollReveals()`).
+   - Visitor can click an exhibition to view its details or open its printable catalogue. Staff and examiners enter the curatorial workspace via the clearly segregated "Curatorial Studio" nav link to `dashboard.html`.
 
 1. **Enter Curatorial Workspace**:
    - Staff opens `dashboard.html`. `initDashboard()` renders `renderNav('Workspace')`, reads `loadData()`, and calls `renderDashboard()`.
@@ -468,16 +468,44 @@ Purpose: Constructs and serves the deterministic curated demonstration dataset c
 - getDemoPlacements(): Returns the twelve non-overlapping artwork assignments to gallery spaces strictly complying with capacity, sold-artwork, and date-overlap rules. Called from: getCuratedDemoData.
 - getCuratedDemoData(): Assembles and returns the full unified curated demonstration repository with nextId set to 34. Called from: loadData in storage.js and loadSampleData in dashboard.js.
 
-### ui.js (Image Resolver Helpers)
-Purpose: Centralizes asset mapping so that all pages resolve artwork, exhibition, and space SVGs consistently without duplicated code.
-- getArtworkImage(art): Resolves local SVG illustration paths for artwork records by ID or title slug with graceful fallbacks. Called from: home.js, artworks.js, artist.js, exhibition.js.
-- getExhibitionImage(ex): Resolves local curated SVG visual plates for exhibitions by ID or title slug. Called from: home.js, exhibitions.js, exhibition.js.
-- getSpaceImage(space): Resolves architectural perspective SVGs for gallery spaces by ID or name slug. Called from: home.js, spaces.js.
+## Milestone A & B: The Warm Gallery Redirection & Homepage Rebuild
+Files: index.html, js/home.js, js/ui.js, css/style.css, AGENTS.md, docs/PRD.md
 
-Viva questions this phase may raise:
-- Why does Gallery Ledger automatically seed sample data on first visit instead of forcing the user to find a button? On static hosting environments like GitHub Pages and direct file:// execution, localStorage is initially empty for every new evaluator. Automatic first-run seeding ensures examiners immediately experience the living gallery website with full collections, exhibitions, and architectural spaces.
-- How does the system ensure intentional data erasure is not undone on page refresh? When data is erased via the Curatorial Studio, galleryData is saved as an empty dataset in localStorage. Because the key exists, loadData() returns the empty object rather than re-triggering the initial seed logic.
-- How does the demonstration collection distinguish real contributor biographies from fictional artworks? Contributor profiles on artist.html carry a prominent archival notice clarifying that while biographical background is grounded in academic research and interdisciplinary work, catalogued artworks, simulated valuations, and exhibition placements are conceptual coursework studies created for class demonstration.
+### Overview & Architecture
+Transforms Gallery Ledger from a rigid administrative dashboard into a warm, expressive, and tactile contemporary art gallery website while strictly preserving all underlying management logic and business rules. The platform clearly delineates two connected layers:
+1. **Visitor Experience (Default, Public, Read-Only):** An art-centric public gallery offering exhibition exploration, collection browsing, living artist monographs, and space architecture. Completely free from administrative forms, deletion buttons, or database clutter.
+2. **Organiser Workspace (Curatorial Studio):** A dedicated staff management suite accessed via the Curatorial Studio nav link, preserving all add/edit/delete forms, space allocation rules, placement conflict checks, and catalogue generation.
+3. **Honest Access-Control & Publishing:** A static client-side project cannot provide cryptographic security. Rather than implementing fake passwords or hidden links, the site operates read-only for visitors, persists staff edits locally in `localStorage`, and supports a genuine static publishing workflow (exporting data to update `js/demo-data.js` and publishing to GitHub Pages).
+
+### home.js
+Purpose: Powers the public contemporary gallery landing page with dataset-driven showcases, collection highlights, artist dossiers, architectural spaces, and entrance/scroll animations.
+- renderHeroTicker(data): Computes and displays live collection metrics (active programmes, artworks, artists, wings) in a warm paper well. Called from: renderHomePage.
+- buildExhibitionCard(data, ex): Constructs image-led editorial HTML for an exhibition card with dates, theme, placements summary, and direct links. Called from: renderExhibitions.
+- renderExhibitions(data): Filters and renders running ('On now') and upcoming seasonal exhibitions into the programme showcase. Called from: renderHomePage.
+- buildArtworkCard(data, art): Formats a tactile artwork plate with local SVG illustration, medium tag, availability status badge, artist link, and INR price. Called from: renderArtworks.
+- renderArtworks(data): Selects and populates up to 6 catalogued artworks into the collection showcase grid. Called from: renderHomePage.
+- buildArtistCard(data, artist): Builds personable artist spotlights highlighting creative discipline, concise bio, artwork tally, and link to artist profile. Called from: renderArtists.
+- renderArtists(data): Renders all living artists into the roster directory grid. Called from: renderHomePage.
+- buildSpaceCard(data, space): Constructs architectural room cards showcasing physical ambiance, natural light notes, and wall capacity. Called from: renderSpaces.
+- renderSpaces(data): Populates the architectural display rooms grid. Called from: renderHomePage.
+- setupScrollReveals(): Initializes IntersectionObserver to gently reveal sections as they scroll into view, respecting reduced motion preferences. Called from: renderHomePage.
+- renderHomePage(): Coordinates rendering of ticker, exhibitions, artworks, artists, spaces, and scroll reveals. Called from: initHomePage.
+- initHomePage(): Renders warm navigation, loads data from localStorage, and triggers homepage rendering. Called from: end of file on startup.
+
+### ui.js (Navigation & Badges)
+Purpose: Manages global navigation, responsive drawer toggles, and archival formatting helpers across the platform.
+- renderNav(activePage): Injects responsive masthead navigation with brand block, public links, mobile menu toggle button, Curatorial Studio link, and archival date. Called from: startup of each page.
+
+Viva questions this milestone may raise:
+- *Why doesn't the public website include "Add Artist" or "Manage Collection" buttons on the homepage?*
+  The public website is intentionally tailored for art lovers, collectors, and exhibition visitors; administrative tools are cleanly segregated into the dedicated Curatorial Studio (`dashboard.html`) to deliver a genuine gallery experience without visual confusion.
+- *How does the platform handle access control without a backend or server authentication?*
+  Honestly and transparently: as a static client-side project, cryptographic security is impossible; the public website is read-only by default, organiser modifications persist in browser `localStorage`, and site updates follow an authentic static publishing workflow where approved data is exported and committed to `demo-data.js`.
+- *How is room occupancy calculated on the public homepage versus the curatorial workspace?*
+  The public homepage highlights architectural character and active installations, whereas the curatorial workspace tracks precise operational capacity for running exhibitions, avoiding stale or historical closed placements from distorting room availability.
+- *How does the animation system respect user accessibility?*
+  CSS keyframes and IntersectionObserver reveals strictly respect `@media (prefers-reduced-motion: reduce)`, immediately displaying all elements without delays or transform shifts.
+
 
 
 

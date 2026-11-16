@@ -1,4 +1,4 @@
-// Homepage presentation logic, visual plates, exhibition showcases, and collection grids.
+// Homepage presentation logic, visual showcases, collection grids, and entrance reveals.
 
 const heroTickerEl = document.getElementById('hero-ticker');
 const exhibitionsEl = document.getElementById('home-exhibitions-container');
@@ -8,15 +8,17 @@ const spacesEl = document.getElementById('home-spaces-container');
 const emptyNoticeEl = document.getElementById('home-empty-notice');
 let galleryData = null;
 
-// Displays live archive totals inside the hero ticker.
+// Displays live archive totals inside the warm hero ticker.
 function renderHeroTicker(data) {
   if (!heroTickerEl) return;
-  const onNow = data.exhibitions.filter(function (e) { return getExhibitionStatus(e) === 'On now'; }).length;
+  const onNow = data.exhibitions.filter(function (e) {
+    return getExhibitionStatus(e) === 'On now';
+  }).length;
   heroTickerEl.innerHTML = `
-    <div class="ticker-item"><span class="ticker-num">${data.exhibitions.length}</span><span class="ticker-lbl">Shows (${onNow} on view)</span></div>
-    <div class="ticker-item"><span class="ticker-num">${data.artworks.length}</span><span class="ticker-lbl">Artworks</span></div>
+    <div class="ticker-item"><span class="ticker-num">${data.exhibitions.length}</span><span class="ticker-lbl">Programmes (${onNow} on view)</span></div>
+    <div class="ticker-item"><span class="ticker-num">${data.artworks.length}</span><span class="ticker-lbl">Catalogued Works</span></div>
     <div class="ticker-item"><span class="ticker-num">${data.artists.length}</span><span class="ticker-lbl">Living Artists</span></div>
-    <div class="ticker-item"><span class="ticker-num">${data.spaces.length}</span><span class="ticker-lbl">Gallery Wings</span></div>
+    <div class="ticker-item"><span class="ticker-num">${data.spaces.length}</span><span class="ticker-lbl">Exhibition Wings</span></div>
   `;
 }
 
@@ -31,13 +33,13 @@ function buildExhibitionCard(data, ex) {
     <div class="card-body">
       <div class="card-meta">${renderStatusBadge(status)}<span class="card-dates">${dateStr}</span></div>
       <h3 class="card-title"><a href="exhibition.html?id=${ex.id}">${escapeHtml(ex.title)}</a></h3>
-      <p class="card-theme">Theme: ${escapeHtml(ex.theme || 'Curatorial survey')}</p>
+      <p class="card-theme">${escapeHtml(ex.theme || 'Curatorial survey')}</p>
       <p class="card-desc">${escapeHtml(ex.description || '')}</p>
       <div class="card-foot">
-        <span class="card-count">${places.length} works placed</span>
+        <span class="card-count">${places.length} works placed in exhibition</span>
         <div class="card-actions">
-          <a href="exhibition.html?id=${ex.id}" class="btn">View Details</a>
-          <a href="catalogue.html?id=${ex.id}" class="btn btn-secondary">Open Catalogue</a>
+          <a href="exhibition.html?id=${ex.id}" class="btn btn-primary">View Exhibition</a>
+          <a href="catalogue.html?id=${ex.id}" class="btn btn-secondary">Printable Catalogue</a>
         </div>
       </div>
     </div>
@@ -56,7 +58,9 @@ function renderExhibitions(data) {
     return;
   }
   let html = '';
-  for (let i = 0; i < active.length; i++) html += buildExhibitionCard(data, active[i]);
+  for (let i = 0; i < active.length; i++) {
+    html += buildExhibitionCard(data, active[i]);
+  }
   exhibitionsEl.innerHTML = html;
 }
 
@@ -86,7 +90,9 @@ function renderArtworks(data) {
   }
   const count = Math.min(6, data.artworks.length);
   let html = '';
-  for (let i = 0; i < count; i++) html += buildArtworkCard(data, data.artworks[i]);
+  for (let i = 0; i < count; i++) {
+    html += buildArtworkCard(data, data.artworks[i]);
+  }
   artworksEl.innerHTML = html;
 }
 
@@ -101,9 +107,9 @@ function buildArtistCard(data, artist) {
     <div class="artist-info">
       <h3 class="artist-name"><a href="artist.html?id=${artist.id}">${escapeHtml(artist.name)}</a></h3>
       <p class="artist-meta">${escapeHtml(meta)}</p>
-      <p class="artist-style">Discipline: ${escapeHtml(artist.style || 'Fine Art')}</p>
+      <p class="artist-style">${escapeHtml(artist.style || 'Fine Art')}</p>
       <p class="artist-bio">${escapeHtml(artist.bio || '')}</p>
-      <p class="artist-count">${countText} in permanent ledger</p>
+      <div class="artist-foot"><span class="artist-count">${countText} in permanent collection</span><a href="artist.html?id=${artist.id}" class="artist-link">View Monograph &rarr;</a></div>
     </div>
   </article>`;
 }
@@ -116,20 +122,22 @@ function renderArtists(data) {
     return;
   }
   let html = '';
-  for (let i = 0; i < data.artists.length; i++) html += buildArtistCard(data, data.artists[i]);
+  for (let i = 0; i < data.artists.length; i++) {
+    html += buildArtistCard(data, data.artists[i]);
+  }
   artistsEl.innerHTML = html;
 }
 
 // Builds the HTML markup for one architectural room card.
 function buildSpaceCard(data, space) {
-  const places = getPlacementsForSpace(data, space.id);
   const imgSrc = getSpaceImage(space);
   return `<article class="space-card">
     <div class="space-media"><img src="${imgSrc}" alt="${escapeHtml(space.name)}"></div>
     <div class="space-body">
+      <div class="space-tag">Gallery Space</div>
       <h3 class="space-name">${escapeHtml(space.name)}</h3>
       <p class="space-note">${escapeHtml(space.note || 'General exhibition hall')}</p>
-      ${renderOccupancyBar(places.length, space.capacity)}
+      <div class="space-foot"><span class="space-cap-note">Wall capacity &middot; Up to ${space.capacity} works</span></div>
     </div>
   </article>`;
 }
@@ -142,8 +150,29 @@ function renderSpaces(data) {
     return;
   }
   let html = '';
-  for (let i = 0; i < data.spaces.length; i++) html += buildSpaceCard(data, data.spaces[i]);
+  for (let i = 0; i < data.spaces.length; i++) {
+    html += buildSpaceCard(data, data.spaces[i]);
+  }
   spacesEl.innerHTML = html;
+}
+
+// Sets up intersection observers for gentle scroll reveals.
+function setupScrollReveals() {
+  const elements = document.querySelectorAll('.reveal-on-scroll');
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced || !('IntersectionObserver' in window)) {
+    for (let i = 0; i < elements.length; i++) elements[i].classList.add('is-revealed');
+    return;
+  }
+  const observer = new IntersectionObserver(function (entries) {
+    for (let i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) {
+        entries[i].target.classList.add('is-revealed');
+        observer.unobserve(entries[i].target);
+      }
+    }
+  }, { threshold: 0.12 });
+  for (let i = 0; i < elements.length; i++) observer.observe(elements[i]);
 }
 
 // Renders all public homepage sections from loaded storage data.
@@ -155,6 +184,7 @@ function renderHomePage() {
   renderArtworks(galleryData);
   renderArtists(galleryData);
   renderSpaces(galleryData);
+  setupScrollReveals();
 }
 
 // Initializes top navigation, reads storage, and populates the homepage.

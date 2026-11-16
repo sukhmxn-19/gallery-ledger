@@ -18,15 +18,18 @@ Place this file at `docs/PRD.md`. It is the source of truth for **what** to buil
 **Required functionality:** Compelling public gallery website; artist profiles; artwork records; exhibition creation; gallery spaces; artwork assignment; exhibition catalogue; curatorial workspace.
 
 **Architecture in two connected layers:**
-- **A. The Gallery Experience:** The public art gallery website (`index.html`) presenting a curated editorial hero, seasonal exhibition showcases, artwork collection grids, artist dossiers, architectural rooms, and an interactive methodology guide.
-- **B. The Management Workspace:** The staff curatorial office (`dashboard.html`, `artists.html`, `artworks.html`, `spaces.html`, `exhibitions.html`, `exhibition.html`, `catalogue.html`) for registering artists, managing artwork inventories, scheduling exhibitions, validating space allocations, and generating printable exhibition catalogues.
+- **A. Visitor Experience (Default, Public, Read-Only):** The welcoming, warm contemporary art gallery website (`index.html`) presenting an editorial hero ("Art has a place here."), current and upcoming exhibition showcases, curated artwork grids, living artist profiles, architectural rooms, and an engaging curatorial story. Free from administrative buttons, management forms, or inventory controls.
+- **B. Organiser Workspace (Curatorial Studio):** The staff curatorial office (`dashboard.html`, `artists.html`, `artworks.html`, `spaces.html`, `exhibitions.html`, `exhibition.html`, `catalogue.html`) for registering artists, managing artwork inventories, scheduling exhibitions, validating space allocations with capacity enforcement, and generating printable exhibition catalogues.
 
 The real value is the **connections**: an artwork belongs to an artist, is placed in a space, for an exhibition, within a date range. The system stops impossible combinations (same artwork in two shows at once, a room double-booked, a full room).
 
 ## 2. Goals and non-goals
 
 Goals
-- Real, human-crafted art gallery website with compelling editorial presentation and zero generic AI slop.
+- Real, human-crafted art gallery website with warm editorial presentation and zero generic AI slop.
+- Clear separation between public art discovery and organiser administration.
+- Honest static frontend access-control: public browsing is read-only by default; organiser controls reside in the Curatorial Studio with local browser persistence (`localStorage`).
+- Authentic academic publishing workflow: Organiser edits locally &rarr; validates collection &rarr; exports updated data &rarr; repository maintainer updates `js/demo-data.js` &rarr; published to GitHub Pages &rarr; visitors see the updated collection.
 - Every one of the core management functions works end to end.
 - Records are linked, and the links are enforced by business rules (section 6).
 - Data survives page refresh (localStorage) and is shared across public and workspace views.
@@ -34,11 +37,11 @@ Goals
 - Deployed online with GitHub Pages and runs locally from `file://`.
 
 Non-goals (do not build)
-- Login, roles, accounts (the division between public and workspace is navigational and visual)
+- Fake authentication, fake password prompts, or security theater (client-side static site cannot provide cryptographic permissions)
 - Backend, database server, APIs, `fetch`
 - Image upload or image hosting (all assets are bundled local SVGs/images)
 - Payments, invoices, emails, notifications
-- Generic SaaS charts or AI template dashboards
+- Generic SaaS charts, purple gradients, or AI template dashboards
 
 ## 3. Technical constraints (non-negotiable)
 
@@ -155,14 +158,14 @@ Nine pages across the two layers. Every page shares the distinctive gallery mast
 
 ### 7.1 Gallery Homepage: `index.html`
 The public exhibition-facing landing experience.
-- FR0-A: Curatorial hero section featuring asymmetrical typography, gallery imagery, clear brand statement ("Where art finds its place"), live collection metrics ticker, and dual primary/secondary action paths.
-- FR0-B: Curatorial statement ribbon highlighting physical archive principles and curatorial integrity.
-- FR0-C: Featured exhibitions section dynamically displaying "On now" and "Upcoming" exhibitions with visual artwork plates, theme, dates, placements count, room occupancy meters, and direct links to exhibition details and printable catalogues.
-- FR0-D: Curated artworks showcase displaying fine prints, sculptures, and paintings with visual artwork plates, artist provenance, medium, Indian Rupee valuation, availability status badges, and room location tags.
-- FR0-E: Living artists spotlight introducing registered artists with biographical cards, styles, artwork tallies, and direct links to individual dossiers.
-- FR0-F: Architectural gallery spaces section featuring room illustrations, dimensions/notes, and graphical occupancy meter bars showing available wall capacity.
-- FR0-G: Exhibition lifecycle methodology section illustrating the 5-step gallery management sequence (Register Artists → Catalogue Artworks → Create Exhibitions → Allocate Spaces → Publish Catalogue) with an entry point to the Curatorial Workspace.
-- FR0-H: Comprehensive multi-column footer with gallery identity, site navigation, curatorial workspace shortcuts, and academic project attribution.
+- FR0-A: Welcoming editorial hero section featuring asymmetrical typography, gallery visual plate, warm headline ("Art has a place here."), concise human-centered introduction, live collection highlights ticker, and two visitor action paths ("Explore Exhibitions" and "Discover the Collection").
+- FR0-B: Curatorial statement ribbon highlighting physical craft, living artists, architectural light, and contemplative viewing.
+- FR0-C: Featured exhibitions section dynamically displaying the primary "On now" exhibition (*The Act of Looking*) in an image-led composition, plus upcoming shows, with visual plates, theme, dates, placements summary, and direct links to exhibition details and printable catalogue.
+- FR0-D: Curated artworks showcase displaying selected artworks with tactile visual plates, artist link, medium, Indian Rupee valuation, and availability status badges, free from inventory management controls.
+- FR0-E: Living artists spotlight introducing registered practitioners (Sukhmanpreet Kaur, Sonam Verma, Salik Riyaz) with personable biographies, disciplines, artwork tallies, and direct links to individual artist profiles.
+- FR0-F: Architectural gallery spaces section featuring room illustrations, dimensions/notes, and physical atmospheric character, keeping operational occupancy meters primarily in the organiser workspace.
+- FR0-G: The gallery story editorial section explaining curatorial vision, collection principles, and contemplative viewing (replacing database management methodology).
+- FR0-H: Comprehensive multi-column footer with gallery identity, visitor navigation, academic project attribution, and a tasteful link to the Curatorial Studio.
 
 ### 7.2 Management Workspace Dashboard: `dashboard.html`
 The curatorial administration workspace overview.
@@ -220,35 +223,35 @@ This is the core screen. It is where artwork assignment happens.
 
 ## 8. UI and visual design
 
-The interface embodies a **curatorial editorial aesthetic**: an authentic contemporary art gallery, archival ledger, and museum publishing house. It bridges the public gallery experience and the staff curatorial office, remaining completely vanilla and explainable by first-semester students.
+The interface embodies a **warm contemporary gallery aesthetic**: an authentic contemporary art gallery, tactile exhibition space, and museum archive. It bridges public art discovery and the curatorial office, remaining completely vanilla and explainable by first-semester students.
 
 **Design principles:**
-- **Editorial materials:** Archival vellum backdrop, pure cotton card surfaces, carbon ink, warm linen accents, and delicate archival rules.
-- **Visual storytelling & hero:** Asymmetrical editorial hero with large serif display type, gallery atmosphere illustration, and clear dual navigation paths.
-- **Curated cards & visual plates:** Exhibition feature cards with artwork plates and occupancy meters, artwork showcase grids with dimensions and medium tags, and framed artist dossiers.
-- **Architectural illustrations:** Local SVG illustrations representing gallery spaces and artworks without external network requests.
-- **Intentional motion:** Restrained CSS transitions and transforms (0.15s–0.25s) for hover elevations, focus feedback, occupancy meter progress, and subtle page entrance reveals. Full support for `@media (prefers-reduced-motion: reduce)`.
-- **Status & spatial visualization:** Curatorial badges with subtle color tinting, borders, and indicator dots (`On now` in vermilion, `Upcoming` in ochre, `Closed` in slate, `Available` in sage, `Reserved`, `Sold`). Room occupancy is visualized through graphical progress bars and capacity ratios.
+- **Warm tactile surfaces:** Archival cream backdrop, cotton card surfaces, warm linen matting, and delicate hairline rules.
+- **Visual storytelling & welcoming hero:** Asymmetrical editorial hero with large serif display type ("Art has a place here."), gallery interior visual plate, and two visitor action paths ("Explore Exhibitions" and "Discover the Collection").
+- **Curated cards & visual plates:** Exhibition feature cards with artwork plates and placements summary, artwork showcase grids with dimensions and medium tags, and framed living artist dossiers.
+- **Architectural illustrations:** Local SVG illustrations representing gallery spaces, exhibitions, and artworks without external network requests.
+- **Animation system:** Restrained CSS transitions and vanilla JavaScript reveals (entrance sequence, IntersectionObserver scroll reveals, gentle image zoom on hover `scale(1.025)`, and subtle card lift). Full support for `@media (prefers-reduced-motion: reduce)`.
+- **Status & curation badges:** Warm curatorial badges with indicator dots (`On now` in terracotta, `Upcoming` in ochre, `Closed` in slate, `Available` in sage, `Reserved`, `Sold`).
 - **Typography:** High-contrast editorial serif (`Playfair Display`, `Didot`, `Georgia`, serif) for display titles, section headings, and placards. Literary reading serif (`Charter`, `Palatino`, `Georgia`, serif) for body text and bios. Curatorial monospace (`ui-monospace`, `Cascadia Code`, `Menlo`, `Consolas`, monospace) for dates, currency, catalog numbers, and metadata. No web fonts or external network font downloads.
-- **No AI Template Slop:** Forbidden generic blue-purple gradients, glowing blobs, glassmorphism, floating badges, meaningless stats, and SaaS/finance dashboard templates.
+- **No AI Template Slop:** Forbidden generic blue-purple gradients, glowing blobs, glassmorphism, floating badges, meaningless stats, and SaaS dashboard templates.
 
 **Colour tokens** (defined as CSS variables in `:root`):
 | token | value | use |
 |---|---|---|
-| `--bg-vellum` | `#f8f6f0` | main page backdrop (warm archival vellum) |
+| `--bg-vellum` | `#fcf9f2` | main page backdrop (warm archival cream) |
 | `--bg-surface` | `#ffffff` | cotton card surface, active inputs |
-| `--bg-surface-warm` | `#f2eee5` | secondary panel background, matting |
-| `--bg-inset` | `#eae5d9` | meter tracks, inset wells, table headers |
-| `--ink-primary` | `#181715` | titles, primary data, active headers |
-| `--ink-secondary` | `#4a4740` | curatorial notes, descriptions, body |
-| `--ink-muted` | `#787367` | metadata, catalog numbers, form labels |
-| `--border-light` | `#e6e0d2` | subtle card partitions |
-| `--border-medium` | `#d4ccbd` | standard card borders, inputs, tables |
-| `--border-strong` | `#2a2825` | structural borders, prominent rules |
-| `--accent-vermilion` | `#9e2a1b` | live exhibitions ("On now"), "Sold", primary actions, errors |
-| `--accent-ochre` | `#b37418` | upcoming exhibitions, "Reserved" artworks |
-| `--accent-sage` | `#386641` | "Available" artworks, healthy room capacity |
-| `--accent-slate` | `#5c6773` | "Closed" exhibitions, historical archives |
+| `--bg-surface-warm` | `#f6efe3` | secondary panel background, linen matting |
+| `--bg-inset` | `#ede5d5` | meter tracks, inset wells, table headers |
+| `--ink-primary` | `#1e1d1a` | titles, primary data, active headers |
+| `--ink-secondary` | `#4a463e` | curatorial notes, descriptions, body |
+| `--ink-muted` | `#7c776e` | metadata, catalog numbers, form labels |
+| `--border-light` | `#eae3d5` | subtle card partitions |
+| `--border-medium` | `#d6cebe` | standard card borders, inputs, tables |
+| `--border-strong` | `#2c2824` | structural borders, prominent rules |
+| `--accent-terracotta` | `#c44b33` | live exhibitions ("On now"), "Sold", primary actions, errors |
+| `--accent-ochre` | `#b57418` | upcoming exhibitions, "Reserved" artworks |
+| `--accent-sage` | `#3d6842` | "Available" artworks, healthy room capacity |
+| `--accent-slate` | `#5d6773` | "Closed" exhibitions, historical archives |
 
 ## 9. File structure
 

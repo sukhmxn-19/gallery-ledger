@@ -7,15 +7,15 @@ function getArchivalTodayString() {
   return `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
 }
 
-// Fills nav with gallery masthead, primary gallery links, workspace shortcut, and date.
+// Fills nav with gallery masthead, primary gallery links, studio link, and mobile toggle.
 function renderNav(activePage) {
   const nav = document.getElementById('nav');
   if (!nav) return;
   const items = [
     { name: 'Home', href: 'index.html' },
     { name: 'Exhibitions', href: 'exhibitions.html' },
-    { name: 'Artists', href: 'artists.html' },
     { name: 'Artworks', href: 'artworks.html' },
+    { name: 'Artists', href: 'artists.html' },
     { name: 'Spaces', href: 'spaces.html' }
   ];
   let linksHtml = '';
@@ -27,9 +27,28 @@ function renderNav(activePage) {
   const isWs = activePage.toLowerCase() === 'workspace' || activePage.toLowerCase() === 'dashboard';
   const wsActive = isWs ? ' class="nav-workspace-link active"' : ' class="nav-workspace-link"';
   nav.innerHTML = `
-    <a href="index.html" class="brand-block"><span class="brand">GALLERY LEDGER</span><span class="brand-sub">Exhibition Space & Curatorial Archive</span></a>
-    <div class="nav-links">${linksHtml}<a href="dashboard.html"${wsActive}>Workspace</a><span class="nav-date">${getArchivalTodayString()}</span></div>
+    <a href="index.html" class="brand-block">
+      <span class="brand">GALLERY LEDGER</span>
+      <span class="brand-sub">Contemporary Art Gallery &amp; Archive</span>
+    </a>
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      ${linksHtml}
+      <a href="dashboard.html"${wsActive} title="Curatorial Workspace &amp; Administration">Curatorial Studio</a>
+      <span class="nav-date">${getArchivalTodayString()}</span>
+    </div>
   `;
+  const toggleBtn = document.getElementById('nav-toggle');
+  const linksBox = document.getElementById('nav-links');
+  if (toggleBtn && linksBox) {
+    toggleBtn.addEventListener('click', function () {
+      linksBox.classList.toggle('nav-open');
+    });
+  }
 }
 
 // Escapes special characters for safe insertion into HTML strings.
@@ -88,7 +107,7 @@ function renderOccupancyBar(current, capacity) {
   const cap = Number(capacity) || 1;
   const pct = Math.min(100, Math.round((curr / cap) * 100));
   let tier = 'meter-sage';
-  if (pct >= 100) tier = 'meter-vermilion';
+  if (pct >= 100) tier = 'meter-terracotta';
   else if (pct >= 70) tier = 'meter-ochre';
   return `
     <div class="meter-box">
