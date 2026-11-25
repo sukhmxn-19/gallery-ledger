@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 320" width="500" height="320">
+  <rect width="500" height="320" fill="#eef3ef"/>
+  <!-- Room Perspective -->
+  <polygon points="60,40 440,40 380,240 120,240" fill="#d9e4db" stroke="#b2c4b7" stroke-width="1.5"/>
+  <polygon points="0,0 60,40 120,240 0,320" fill="#e4ede6"/>
+  <polygon points="500,0 440,40 380,240 500,320" fill="#cbd9ce"/>
+  <!-- Arched French Windows to Courtyard -->
+  <g fill="#c1d6c7" stroke="#2c3f32" stroke-width="2">
+    <!-- Window 1 -->
+    <path d="M 150,210 L 150,110 A 35,35 0 0,1 220,110 L 220,210 Z"/>
+    <line x1="185" y1="80" x2="185" y2="210"/>
+    <line x1="150" y1="130" x2="220" y2="130"/>
+    <line x1="150" y1="170" x2="220" y2="170"/>
+    <!-- Window 2 -->
+    <path d="M 280,210 L 280,110 A 35,35 0 0,1 350,110 L 350,210 Z"/>
+    <line x1="315" y1="80" x2="315" y2="210"/>
+    <line x1="280" y1="130" x2="350" y2="130"/>
+    <line x1="280" y1="170" x2="350" y2="170"/>
+  </g>
+  <!-- Floor Tile Work -->
+  <polygon points="120,240 380,240 500,320 0,320" fill="#9fae9a"/>
+  <line x1="250" y1="240" x2="250" y2="320" stroke="#7e8f79" stroke-width="1.5"/>
+  <text x="25" y="305" font-family="'Consolas', monospace" font-size="10" letter-spacing="1.5" fill="#243328">SPACE 02 · GARDEN ROOM (CAPACITY: 4)</text>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 320" width="500" height="320">
+  <defs>
+    <linearGradient id="scScreenGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fffdf8" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#eedbc0" stop-opacity="0.75"/>
+    </linearGradient>
+    <linearGradient id="scAmbient" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+  <!-- Dark Acoustic Chamber -->
+  <rect width="500" height="320" fill="#181a1d"/>
+  <!-- Recessed Alcove Perspective -->
+  <polygon points="90,45 410,45 370,225 130,225" fill="#252930" stroke="#3d434d" stroke-width="1.5"/>
+  <polygon points="0,0 90,45 130,225 0,320" fill="#202328"/>
+  <polygon points="500,0 410,45 370,225 500,320" fill="#1b1e22"/>
+  <!-- Acoustic Slat Wall Lines -->
+  <line x1="20" y1="40" x2="60" y2="260" stroke="#2e333b" stroke-width="1.5"/>
+  <line x1="45" y1="30" x2="90" y2="245" stroke="#2e333b" stroke-width="1.5"/>
+  <line x1="480" y1="40" x2="440" y2="260" stroke="#2e333b" stroke-width="1.5"/>
+  <line x1="455" y1="30" x2="410" y2="245" stroke="#2e333b" stroke-width="1.5"/>
+  <!-- Recessed Backlit Vitrine / Screen Frame -->
+  <rect x="160" y="75" width="180" height="110" fill="url(#scScreenGlow)" stroke="#f8f6f0" stroke-width="2"/>
+  <polygon points="160,185 340,185 370,225 130,225" fill="url(#scAmbient)"/>
+  <!-- Minimalist Viewing Bench -->
+  <rect x="180" y="240" width="140" height="20" fill="#2f343d" stroke="#525b6a" stroke-width="1"/>
+  <line x1="200" y1="260" x2="195" y2="285" stroke="#525b6a" stroke-width="2"/>
+  <line x1="300" y1="260" x2="305" y2="285" stroke="#525b6a" stroke-width="2"/>
+  <!-- Floor -->
+  <polygon points="130,225 370,225 500,320 0,320" fill="#141517"/>
+  <!-- Archival Label -->
+  <text x="25" y="305" font-family="'Consolas', 'Menlo', monospace" font-size="10" letter-spacing="1.5" fill="#8d97a5">SPACE 03 · SCREENING ALCOVE (CAPACITY: 3)</text>
+</svg>
+

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#2c2621"/>
+  <rect x="15" y="15" width="370" height="270" fill="#383029" stroke="#52463c" stroke-width="1"/>
+  <!-- Wooden Table Edge -->
+  <polygon points="30,220 370,220 370,270 30,270" fill="#241e1a" stroke="#52463c" stroke-width="1"/>
+  <!-- Ceramic Bowl -->
+  <ellipse cx="200" cy="200" rx="90" ry="25" fill="#cfc2ad" stroke="#181715" stroke-width="2"/>
+  <path d="M 110,200 Q 200,245 290,200 Z" fill="#b0a28c"/>
+  <!-- Golden Quinces -->
+  <circle cx="165" cy="180" r="28" fill="#d49422" stroke="#8a5a0c" stroke-width="1.5"/>
+  <circle cx="210" cy="175" r="32" fill="#e5aa32" stroke="#8a5a0c" stroke-width="1.5"/>
+  <circle cx="245" cy="190" r="24" fill="#c48518" stroke="#8a5a0c" stroke-width="1.5"/>
+  <!-- Subtle Leaf -->
+  <path d="M 195,150 Q 210,135 225,145 Q 210,160 195,150 Z" fill="#386641"/>
+  <text x="25" y="275" font-family="'Consolas', monospace" font-size="9" letter-spacing="1" fill="#c4b49d">NATURAL EARTH PIGMENTS ON PANEL · ANIKA RAO</text>
+</svg>

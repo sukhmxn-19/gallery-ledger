@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#f4efe6"/>
+  <rect x="15" y="15" width="370" height="270" fill="#eae3d2" stroke="#d4ccbd" stroke-width="1"/>
+  <g fill="#181715">
+    <!-- Window frame shadow lines -->
+    <polygon points="40,260 90,40 130,40 80,260"/>
+    <polygon points="120,260 170,40 210,40 160,260"/>
+    <polygon points="200,260 250,40 290,40 240,260"/>
+    <polygon points="280,260 330,40 370,40 320,260"/>
+    <!-- Floor angle horizontal cross slats -->
+    <polygon points="40,160 360,130 360,150 40,180" fill="#9e2a1b" fill-opacity="0.85"/>
+  </g>
+  <text x="25" y="275" font-family="'Consolas', monospace" font-size="9" letter-spacing="1" fill="#787367">EDITION 08/25 · WOODCUT PRINT · MEERA KOHLI</text>
+</svg>

@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 650" width="900" height="650">
+  <defs>
+    <linearGradient id="wallGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ece5d8"/>
+      <stop offset="100%" stop-color="#ded4c3"/>
+    </linearGradient>
+    <linearGradient id="floorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c9beaa"/>
+      <stop offset="100%" stop-color="#b0a38d"/>
+    </linearGradient>
+    <linearGradient id="skylightBeam" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="subtleShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#181715" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- Gallery Main Wall -->
+  <rect x="0" y="0" width="900" height="480" fill="url(#wallGrad)"/>
+
+  <!-- Architectural Ceiling Cornice & Crown Molding -->
+  <rect x="0" y="0" width="900" height="32" fill="#d3c7b4"/>
+  <line x1="0" y1="32" x2="900" y2="32" stroke="#b8aa94" stroke-width="2"/>
+  <line x1="0" y1="40" x2="900" y2="40" stroke="#c4b7a2" stroke-width="1"/>
+
+  <!-- Natural Skylight Ray -->
+  <polygon points="120,0 340,0 520,480 200,480" fill="url(#skylightBeam)"/>
+
+  <!-- Gallery Hardwood Floor -->
+  <rect x="0" y="480" width="900" height="170" fill="url(#floorGrad)"/>
+  <!-- Floor Perspective Planks -->
+  <line x1="0" y1="480" x2="900" y2="480" stroke="#8d806a" stroke-width="2"/>
+  <line x1="140" y1="480" x2="60" y2="650" stroke="#a0937d" stroke-width="1.5" stroke-opacity="0.6"/>
+  <line x1="320" y1="480" x2="280" y2="650" stroke="#a0937d" stroke-width="1.5" stroke-opacity="0.6"/>
+  <line x1="500" y1="480" x2="520" y2="650" stroke="#a0937d" stroke-width="1.5" stroke-opacity="0.6"/>
+  <line x1="680" y1="480" x2="740" y2="650" stroke="#a0937d" stroke-width="1.5" stroke-opacity="0.6"/>
+  <line x1="840" y1="480" x2="920" y2="650" stroke="#a0937d" stroke-width="1.5" stroke-opacity="0.6"/>
+
+  <!-- Wall Hanging 1: Grand Archival Canvas (Left) -->
+  <g filter="url(#subtleShadow)">
+    <rect x="90" y="90" width="220" height="300" fill="#f8f6f0" stroke="#2a2825" stroke-width="3"/>
+    <!-- Matting Inset -->
+    <rect x="110" y="110" width="180" height="260" fill="#f2ede4" stroke="#d4ccbd" stroke-width="1"/>
+    <!-- Abstract Architectural Composition Inside -->
+    <rect x="125" y="125" width="150" height="230" fill="#ebe4d6"/>
+    <circle cx="200" cy="220" r="55" fill="#9e2a1b" fill-opacity="0.85"/>
+    <rect x="150" y="180" width="100" height="130" fill="#181715" fill-opacity="0.75"/>
+    <line x1="135" y1="310" x2="265" y2="170" stroke="#f8f6f0" stroke-width="2"/>
+    <line x1="140" y1="330" x2="260" y2="330" stroke="#b37418" stroke-width="3"/>
+    <!-- Placard Label Below -->
+    <rect x="325" y="360" width="35" height="24" fill="#ffffff" stroke="#d4ccbd" stroke-width="0.5"/>
+    <line x1="330" y1="368" x2="355" y2="368" stroke="#787367" stroke-width="1"/>
+    <line x1="330" y1="374" x2="348" y2="374" stroke="#787367" stroke-width="1"/>
+  </g>
+
+  <!-- Wall Hanging 2: Monumental Polyptych / Minimalist Study (Center-Right) -->
+  <g filter="url(#subtleShadow)">
+    <rect x="390" y="70" width="410" height="260" fill="#ffffff" stroke="#181715" stroke-width="3"/>
+    <!-- Inner Matting -->
+    <rect x="410" y="86" width="370" height="228" fill="#fcfbf9"/>
+    <!-- Curatorial Abstract Linework -->
+    <rect x="430" y="106" width="160" height="188" fill="#181715"/>
+    <rect x="610" y="106" width="150" height="188" fill="#e5ded0"/>
+    <circle cx="610" cy="200" r="45" fill="#386641" fill-opacity="0.7"/>
+    <line x1="450" y1="120" x2="450" y2="280" stroke="#f8f6f0" stroke-width="3"/>
+    <line x1="470" y1="140" x2="570" y2="240" stroke="#9e2a1b" stroke-width="2"/>
+    <line x1="630" y1="120" x2="740" y2="120" stroke="#181715" stroke-width="1"/>
+    <line x1="630" y1="135" x2="710" y2="135" stroke="#787367" stroke-width="1"/>
+    <!-- Center Placard -->
+    <rect x="815" y="300" width="45" height="28" fill="#ffffff" stroke="#d4ccbd" stroke-width="0.5"/>
+    <line x1="820" y1="309" x2="850" y2="309" stroke="#181715" stroke-width="1"/>
+    <line x1="820" y1="316" x2="842" y2="316" stroke="#787367" stroke-width="1"/>
+  </g>
+
+  <!-- Architectural Pedestal & Modernist Sculpture (Right Floor) -->
+  <g filter="url(#subtleShadow)">
+    <!-- Pedestal Base & Pillar -->
+    <polygon points="680,440 760,440 770,550 670,550" fill="#ffffff" stroke="#d4ccbd" stroke-width="1"/>
+    <polygon points="670,550 770,550 780,560 660,560" fill="#ebe4d6"/>
+    <!-- Steel & Stone Geometric Sculpture on Pedestal -->
+    <polygon points="720,340 755,390 735,440 690,420" fill="#2b2724"/>
+    <polygon points="720,340 685,390 710,440 735,440" fill="#4a4740"/>
+    <circle cx="720" cy="385" r="14" fill="#b37418"/>
+  </g>
+
+  <!-- Gallery Hardwood Museum Bench (Foreground Center-Left) -->
+  <g filter="url(#subtleShadow)">
+    <!-- Bench Top -->
+    <polygon points="220,530 460,530 440,555 200,555" fill="#3a342c"/>
+    <rect x="200" y="555" width="240" height="8" fill="#24201a"/>
+    <!-- Bench Legs with Floor Shadow -->
+    <rect x="230" y="563" width="14" height="42" fill="#181715"/>
+    <rect x="410" y="563" width="14" height="42" fill="#181715"/>
+    <!-- Floor contact shadows -->
+    <ellipse cx="237" cy="606" rx="14" ry="4" fill="#665b4c" fill-opacity="0.6"/>
+    <ellipse cx="417" cy="606" rx="14" ry="4" fill="#665b4c" fill-opacity="0.6"/>
+  </g>
+
+  <!-- Curatorial Spatial Watermark -->
+  <text x="40" y="620" font-family="'Consolas', 'Menlo', monospace" font-size="11" letter-spacing="2" fill="#645a4a">NORTH HALL · WEST WING // NATURAL SKYLIGHT AXIS</text>
+  <text x="860" y="620" font-family="'Consolas', 'Menlo', monospace" font-size="11" letter-spacing="1" fill="#645a4a" text-anchor="end">ROOM 01 · 6 WORKS CAPACITY</text>
+</svg>
+

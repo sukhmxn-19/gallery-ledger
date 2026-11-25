@@ -1,0 +1,49 @@
+# Query: Original Website Development Credit
+# ContextLines: 1
+
+9 results - 9 files
+
+artist.html:
+  48          <p><strong>Official Academic Team:</strong> Sukhmanpreet Kaur and Sonam Verma</p>
+  49:         
+  50          <h4>Colophon</h4>
+
+artists.html:
+  148          <p><strong>Official Academic Team:</strong> Sukhmanpreet Kaur and Sonam Verma</p>
+  149:         
+  150          <h4>Colophon</h4>
+
+artworks.html:
+  192          <p><strong>Official Academic Team:</strong> Sukhmanpreet Kaur and Sonam Verma</p>
+  193:         
+  194          <h4>Colophon</h4>
+
+dashboard.html:
+  133          <p><strong>Official Academic Team:</strong> Sukhmanpreet Kaur and Sonam Verma</p>
+  134:        
+  135          <h4>Colophon</h4>
+
+exhibition.html:
+  143          <p><strong>Official Academic Team:</strong> Sukhmanpreet Kaur and Sonam Verma</p>
+  144:         
+  145          <p class="footer-built">Vanilla HTML5 · CSS3 · Pure JavaScript · LocalStorage</p>
+
+exhibitions.html:
+  134          <p><strong>Official Academic Team:</strong> Sukhmanpreet Kaur and Sonam Verma</p>
+  135:         
+  136          <p class="footer-built">Vanilla HTML5 · CSS3 · Pure JavaScript · LocalStorage</p>
+
+spaces.html:
+  152          <p><strong>Official Academic Team:</strong> Sukhmanpreet Kaur and Sonam Verma</p>
+  153:       
+  154          <h4>Colophon</h4>
+
+docs\EXPLAIN.md:
+  466  ### demo-data.js
+  467: Purpose: Constructs and serves the deterministic curated demonstration dataset connecting the Official Academic Team: Sukhmanpreet Kaur and Sonam Verma , three architectural spaces, three scheduled exhibitions, twelve conceptual artworks, and twelve non-overlapping placements.
+  468  - formatOffsetDate(days): Computes calendar date strings offset from today's date for dynamic relative exhibition scheduling. Called from: getDemoExhibitions.
+
+docs\PRD.md:
+  321  ### Curated Content Structure
+  322: - **Academic Team Attribution (2)**: Official Academic Team: Sukhmanpreet Kaur (Paper & Structural Geometry) and Sonam Verma (Architectural Light & Spatial Form). Student team profiles distinguish factual research and academic backgrounds from fictional coursework demonstration scenarios. 
+  323  - **Architectural Spaces (3)**: North Gallery (Capacity: 6, primary hall), Project Room (Capacity: 4, visual studies), Screening Alcove (Capacity: 3, lens-based research).

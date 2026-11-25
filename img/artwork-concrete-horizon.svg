@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#dedede"/>
+  <rect x="15" y="15" width="370" height="270" fill="#ebebeb" stroke="#b0b0b0" stroke-width="1"/>
+  <!-- Brutalist Concrete Beams & Horizon -->
+  <polygon points="40,240 360,240 360,270 40,270" fill="#505050"/>
+  <polygon points="40,150 160,110 360,150 360,240 40,240" fill="#8a8a8a"/>
+  <polygon points="40,150 160,110 160,80 40,120" fill="#404040"/>
+  <polygon points="160,110 360,150 360,120 160,80" fill="#696969"/>
+  <!-- Concrete Texture Dots -->
+  <circle cx="90" cy="180" r="3" fill="#303030"/>
+  <circle cx="210" cy="180" r="3" fill="#303030"/>
+  <circle cx="310" cy="180" r="3" fill="#303030"/>
+  <text x="25" y="275" font-family="'Consolas', monospace" font-size="9" letter-spacing="1" fill="#404040">MONOCHROME ARCHITECTURAL PHOTOGRAPHY · LUKAS BRANDT</text>
+</svg>

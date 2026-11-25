@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 320" width="500" height="320">
+  <defs>
+    <linearGradient id="prSpot" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff8ed" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#dedad2" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+  <rect width="500" height="320" fill="#f0ebe1"/>
+  <!-- Minimalist Back Wall -->
+  <polygon points="70,55 430,55 385,225 115,225" fill="#ded7ca" stroke="#bcb09e" stroke-width="1.5"/>
+  <polygon points="0,0 70,55 115,225 0,320" fill="#e8e2d6"/>
+  <polygon points="500,0 430,55 385,225 500,320" fill="#cfc7b9"/>
+  <!-- Ceiling Track Light Fixture -->
+  <line x1="90" y1="55" x2="410" y2="55" stroke="#181715" stroke-width="3"/>
+  <circle cx="160" cy="55" r="4" fill="#181715"/>
+  <circle cx="250" cy="55" r="4" fill="#181715"/>
+  <circle cx="340" cy="55" r="4" fill="#181715"/>
+  <!-- Directional Spotlight Cones -->
+  <polygon points="160,55 125,200 205,200" fill="url(#prSpot)"/>
+  <polygon points="250,55 210,200 290,200" fill="url(#prSpot)"/>
+  <polygon points="340,55 300,200 375,200" fill="url(#prSpot)"/>
+  <!-- Polished Concrete Floor -->
+  <polygon points="115,225 385,225 500,320 0,320" fill="#9e998f"/>
+  <line x1="200" y1="225" x2="160" y2="320" stroke="#7e7970" stroke-width="1"/>
+  <line x1="300" y1="225" x2="340" y2="320" stroke="#7e7970" stroke-width="1"/>
+  <!-- Precision Display Vitrines & Wall Studies -->
+  <rect x="145" y="105" width="55" height="75" fill="#ffffff" stroke="#181715" stroke-width="1.5"/>
+  <rect x="230" y="95" width="60" height="85" fill="#ffffff" stroke="#181715" stroke-width="1.5"/>
+  <rect x="320" y="110" width="50" height="70" fill="#ffffff" stroke="#181715" stroke-width="1.5"/>
+  <!-- Archival Label -->
+  <text x="25" y="305" font-family="'Consolas', 'Menlo', monospace" font-size="10" letter-spacing="1.5" fill="#2d2822">SPACE 02 · PROJECT ROOM (CAPACITY: 4)</text>
+</svg>
+

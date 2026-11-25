@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#201e1c"/>
+  <rect x="15" y="15" width="370" height="270" fill="#282522" stroke="#4a443d" stroke-width="1"/>
+  <!-- Welded Steel Modernist Silhouette -->
+  <polygon points="170,250 230,250 240,160 270,90 200,60 130,90 160,160" fill="#7a6e60" stroke="#a39685" stroke-width="2"/>
+  <polygon points="170,160 230,160 215,90 185,90" fill="#3d3730"/>
+  <!-- Welded Seam Lines -->
+  <line x1="170" y1="250" x2="200" y2="60" stroke="#b37418" stroke-width="2"/>
+  <line x1="130" y1="90" x2="240" y2="160" stroke="#181715" stroke-width="2"/>
+  <circle cx="200" cy="110" r="10" fill="#9e2a1b"/>
+  <text x="25" y="275" font-family="'Consolas', monospace" font-size="9" letter-spacing="1" fill="#a39685">WELDED RECLAIMED STEEL · TOMAS REYES</text>
+</svg>

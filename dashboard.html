@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curatorial Studio — Gallery Ledger</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header>
+    <nav id="nav"></nav>
+  </header>
+
+  <main class="animate-in">
+    <!-- Studio Header -->
+    <div class="studio-header">
+      <div class="studio-header-title">
+        <div class="section-tag">Management Workspace</div>
+        <h1>The Curatorial Studio</h1>
+        <p class="studio-header-sub">Operational desk connecting artist registration, collections inventory, physical
+          space allocation, and seasonal exhibition scheduling.</p>
+      </div>
+      <div>
+        <a href="index.html" class="btn secondary">&larr; Public Gallery Homepage</a>
+      </div>
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="empty-curatorial" hidden>
+      <h3>Archive Registry Empty</h3>
+      <p>No gallery data found in local storage. You may register your first artist or load demonstration records.</p>
+      <div style="display: flex; justify-content: center; gap: 12px; margin-top: 16px; flex-wrap: wrap;">
+        <a href="artists.html?action=new" class="btn">Register First Artist</a>
+        <button type="button" id="empty-load-sample-btn" class="secondary">Load Sample Collection</button>
+      </div>
+    </div>
+
+    <!-- Populated Management Workspace -->
+    <div id="dashboard-content" hidden>
+      <!-- Quick Functional Management Actions -->
+      <div class="studio-quick-grid">
+        <a href="artists.html?action=new" class="studio-quick-btn">
+          <span class="studio-quick-icon">✦</span>
+          <span class="studio-quick-label">Register Artist</span>
+        </a>
+        <a href="artworks.html?action=new" class="studio-quick-btn">
+          <span class="studio-quick-icon">✦</span>
+          <span class="studio-quick-label">Add Artwork</span>
+        </a>
+        <a href="exhibitions.html?action=new" class="studio-quick-btn">
+          <span class="studio-quick-icon">✦</span>
+          <span class="studio-quick-label">New Exhibition</span>
+        </a>
+        <a href="spaces.html?action=new" class="studio-quick-btn">
+          <span class="studio-quick-icon">✦</span>
+          <span class="studio-quick-label">Add Space</span>
+        </a>
+        <a href="exhibitions.html" id="quick-placements-btn" class="studio-quick-btn">
+          <span class="studio-quick-icon">✦</span>
+          <span class="studio-quick-label">Placements</span>
+        </a>
+        <a href="catalogue.html" id="quick-catalogue-btn" class="studio-quick-btn">
+          <span class="studio-quick-icon">✦</span>
+          <span class="studio-quick-label">Catalogues</span>
+        </a>
+      </div>
+
+      <!-- Core Archive Inventory Totals -->
+      <div id="counts-row" class="count-row"></div>
+
+      <!-- Operational Status & Artwork Breakdown -->
+      <div id="operational-strip" class="operational-strip"></div>
+
+      <!-- Currently on View Section -->
+      <div class="section-header" style="margin-top: var(--sp-4);">
+        <div class="section-tag">Live Gallery Programme</div>
+        <h2>Exhibitions Currently on View</h2>
+      </div>
+      <div id="on-now-container" class="studio-exhibition-grid"></div>
+
+      <hr>
+
+      <!-- Upcoming Exhibition Schedule -->
+      <div class="section-header">
+        <div class="section-tag">Curatorial Horizon</div>
+        <h2>Upcoming Exhibition Schedule</h2>
+      </div>
+      <div id="upcoming-container" class="studio-upcoming-list"></div>
+    </div>
+
+    <!-- Maintenance Well -->
+    <div class="panel-well">
+      <h3>Archive Maintenance &amp; Demonstration Tools</h3>
+      <p class="label-meta">Official demonstration tools for examiners to load sample exhibitions or reset data state.
+      </p>
+      <div class="row-actions" style="margin-top: 12px; display: flex; gap: 12px;">
+        <button type="button" id="load-sample-btn" class="secondary">Load Curated Collection</button>
+        <button type="button" id="erase-all-btn" class="delete">Erase All Data</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <span class="brand">GALLERY LEDGER</span>
+        <span class="footer-tagline">Exhibition Platform</span>
+        <p class="footer-about">An architectural art gallery exhibition management system connecting living artists,
+          original works, physical spaces, and curated exhibition programmes.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">The Gallery</a></li>
+          <li><a href="exhibitions.html">Exhibitions</a></li>
+          <li><a href="artists.html">Artists</a></li>
+          <li><a href="artworks.html">Collection</a></li>
+          <li><a href="spaces.html">Gallery Spaces</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Workspace</h4>
+        <ul>
+          <li><a href="dashboard.html">Curatorial Studio</a></li>
+          <li><a href="exhibitions.html">Scheduling Desk</a></li>
+          <li><a href="artworks.html">Accession Desk</a></li>
+          <li><a href="spaces.html">Space Allocation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Academic Attribution</h4>
+        <p><strong>Course:</strong> CSE326 (1st Semester, LPU)</p>
+        <p><strong>Project IDs:</strong> RK2P26EVA29 / RK2P26EVA30</p>
+        <p><strong>Official Academic Team:</strong> Sukhmanpreet Kaur and Sonam Verma</p>
+
+        <h4>Colophon</h4>
+        <p>CSE326 Web Development Project.</p>
+        <p>Built with semantic HTML5, modular CSS3, and browser localStorage persistence.</p>
+        <p class="footer-built">100% Client-side &bull; Zero External Network Calls</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Gallery Ledger. Curatorial Archive System.</span>
+      <span>Management Studio</span>
+    </div>
+  </footer>
+
+  <script src="js/demo-data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+
+</html>

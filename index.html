@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery Ledger — Contemporary Art Gallery &amp; Archive</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav id="nav"></nav>
+  </header>
+
+  <main class="home-main">
+    <!-- Welcoming Editorial Hero -->
+    <section class="home-hero">
+      <div class="hero-content">
+        <div class="hero-eyebrow"><span class="badge-dot"></span> Contemporary Art Gallery &amp; Archive</div>
+        <h1 class="hero-title">Art has a place here.</h1>
+        <p class="hero-lede">
+          An architectural exhibition space connecting living artists, natural illumination, and curated seasonal programmes. Explore current exhibitions or discover selected studies from our permanent collection.
+        </p>
+        <div class="hero-actions">
+          <a href="#featured-exhibitions" class="btn btn-primary">Explore Exhibitions</a>
+          <a href="#featured-artworks" class="btn btn-warm-outline">Discover the Collection</a>
+        </div>
+        <div id="hero-ticker" class="hero-ticker"></div>
+      </div>
+      <div class="hero-visual-frame">
+        <img src="img/hero-gallery.svg" alt="North Gallery interior with natural skylight and framed works" class="hero-img">
+        <div class="hero-visual-caption">
+          <span>North Gallery &middot; Vaulted Skylights</span>
+          <span>Permanent Collection Registry</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Curatorial Statement Ribbon -->
+    <div class="curatorial-ribbon">
+      <span>✦ Physical Craft &amp; Materiality</span>
+      <span>✦ Living Contemporary Artists</span>
+      <span>✦ Natural Architectural Light</span>
+      <span>✦ Contemplative Viewing</span>
+    </div>
+
+    <!-- Empty Archive Notice (shown only if store is unpopulated) -->
+    <div id="home-empty-notice" class="empty-curatorial" hidden>
+      <h3>Archive Registry Empty</h3>
+      <p>No gallery records are currently loaded in local storage. Open the Curatorial Studio to populate demonstration exhibitions.</p>
+      <div class="section-cta-row">
+        <a href="dashboard.html" class="btn btn-primary">Open Curatorial Studio</a>
+      </div>
+    </div>
+
+    <!-- 01 / Featured Exhibitions -->
+    <section class="home-section reveal-on-scroll" id="featured-exhibitions">
+      <div class="section-header">
+        <div class="section-tag">01 / Programme</div>
+        <h2>Current &amp; Upcoming Exhibitions</h2>
+        <p class="section-desc">Curated seasonal installations scheduled across North Gallery, Project Room, and the Screening Alcove.</p>
+      </div>
+      <div id="home-exhibitions-container" class="home-exhibitions-grid"></div>
+      <div class="section-cta-row">
+        <a href="exhibitions.html" class="btn btn-warm-outline">View Full Exhibition Programme &rarr;</a>
+      </div>
+    </section>
+
+    <!-- 02 / Curated Artworks -->
+    <section class="home-section reveal-on-scroll" id="featured-artworks">
+      <div class="section-header">
+        <div class="section-tag">02 / The Collection</div>
+        <h2>Selected Works on View</h2>
+        <p class="section-desc">Paper relief studies, architectural light studies, and astronomical field compositions currently in registry.</p>
+      </div>
+      <div id="home-artworks-container" class="home-artworks-grid"></div>
+      <div class="section-cta-row">
+        <a href="artworks.html" class="btn btn-warm-outline">Explore Complete Catalogued Artworks &rarr;</a>
+      </div>
+    </section>
+
+    <!-- 03 / Meet the Artists -->
+    <section class="home-section reveal-on-scroll" id="featured-artists">
+      <div class="section-header">
+        <div class="section-tag">03 / Roster</div>
+        <h2>Meet the Artists</h2>
+        <p class="section-desc">Contemporary practitioners contributing to the permanent ledger, working across paper geometry, architectural light, and photographic inquiry.</p>
+      </div>
+      <div id="home-artists-container" class="home-artists-grid"></div>
+      <div class="section-cta-row">
+        <a href="artists.html" class="btn btn-warm-outline">View All Artists &amp; Biographies &rarr;</a>
+      </div>
+    </section>
+
+    <!-- 04 / Architectural Gallery Spaces -->
+    <section class="home-section reveal-on-scroll" id="featured-spaces">
+      <div class="section-header">
+        <div class="section-tag">04 / Architecture</div>
+        <h2>Our Gallery Spaces</h2>
+        <p class="section-desc">Carefully proportioned gallery wings engineered for specific light conditions, mediums, and contemplative observation.</p>
+      </div>
+      <div id="home-spaces-container" class="home-spaces-grid"></div>
+      <div class="section-cta-row">
+        <a href="spaces.html" class="btn btn-warm-outline">Explore Gallery Architecture &rarr;</a>
+      </div>
+    </section>
+
+    <!-- 05 / The Gallery Story -->
+    <section class="home-section story-section reveal-on-scroll" id="gallery-story">
+      <div class="story-container">
+        <div class="story-header">
+          <div class="section-tag">05 / Curatorial Story</div>
+          <h2>A Space for Art to Breathe</h2>
+          <p class="story-lead">Gallery Ledger was established on a shared conviction: art requires a physical place where intention, light, and materiality meet in quiet dialogue.</p>
+        </div>
+        <div class="story-pillars">
+          <div class="story-pillar">
+            <div class="story-pillar-tag">Tactile Focus</div>
+            <h3>Material Integrity</h3>
+            <p>We celebrate unhurried, tangible craft: relief vellum, mineral inks, hand-pulled cyanotypes, and silver gelatin prints that reward patient, close viewing.</p>
+          </div>
+          <div class="story-pillar">
+            <div class="story-pillar-tag">Spatial Light</div>
+            <h3>Architectural Harmony</h3>
+            <p>Rooms calibrated for natural daylight and shadow intervals. Placements honor wall space, sightlines, and physical room proportions.</p>
+          </div>
+          <div class="story-pillar">
+            <div class="story-pillar-tag">Living Archive</div>
+            <h3>Curatorial Dialogue</h3>
+            <p>Connecting emerging artists and academic researchers through seasonal exhibitions that explore perspective, architecture, and memory.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Multi-column Gallery Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col footer-brand-col">
+        <span class="brand">GALLERY LEDGER</span>
+        <p class="footer-tagline">Contemporary Art Gallery &amp; Archive</p>
+        <p class="footer-about">An architectural exhibition space dedicated to living artists, physical craft, and thoughtful curatorial presentation.</p>
+        <div class="footer-meta-note">
+          <span>Visiting Hours: Tue &ndash; Sun, 10:00 &ndash; 18:00</span>
+          <span>Free Admission &middot; Wheelchair Accessible</span>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="exhibitions.html">Exhibitions</a></li>
+          <li><a href="artworks.html">Collection</a></li>
+          <li><a href="artists.html">Artists</a></li>
+          <li><a href="spaces.html">Gallery Spaces</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Curatorial Desk</h4>
+        <ul>
+          <li><a href="dashboard.html">Curatorial Studio</a></li>
+          <li><a href="exhibitions.html">Exhibition Schedule</a></li>
+          <li><a href="catalogue.html?id=7">Current Catalogue</a></li>
+        </ul>
+        <p class="footer-subtext">Curatorial workspace provides local demonstration management for course assessment.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Academic Attribution</h4>
+        <p><strong>Course:</strong> CSE326 (1st Semester, LPU)</p>
+        <p><strong>Project IDs:</strong> RK2P26EVA29 / RK2P26EVA30</p>
+        <p><strong>Official Academic Team:</strong> Sukhmanpreet Kaur and Sonam Verma</p>
+        <p class="footer-built">Vanilla HTML5 · CSS3 · Pure JavaScript · LocalStorage</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Gallery Ledger. Independent Contemporary Gallery.</span>
+      <span>Static Client-Side Deployment &middot; Examiner Ready</span>
+    </div>
+  </footer>
+
+  <script src="js/demo-data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
